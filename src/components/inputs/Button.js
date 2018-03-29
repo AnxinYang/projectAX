@@ -23,22 +23,30 @@ export default class Button extends Component{
         this.setState(newState);
     }
 
-    handleMouseClick(e){
-        var handleClick = this.props.handleMouseClick;
-        handleClick&&handleClick(e);
+    handleClick(e){
+        var handleClick = this.props.handleClick;
+        var value = this.props.value;
+        var action = this.props.action;
+        var msg = {
+            action: action,
+            value:value
+        };
+        handleClick&&handleClick(msg);
     }
 
     render(){
         var text = this.props.text||'Button';
         var styleSet = this.props.styleSet || {normal:{cursor:'Pointer'}};
         var status = this.props.status || 'normal';
-        var style = styleSet[status] || {};
+        var style = styleSet['normal'];
+        var addOnStyle = styleSet[status] || {};
         if(this.state.isMouseOver){
-            style = styleSet['mouseOver'] || style;
+            addOnStyle = styleSet['mouseOver'] || addOnStyle;
         }
+        var finalStyle = Object.assign({},style,addOnStyle);
         return(
-            <div style={style}
-                 onClick={this.handleMouseClick.bind(this)}
+            <div style={finalStyle}
+                 onClick={this.handleClick.bind(this)}
                  onMouseLeave={this.handleMouseLeft.bind(this)}
                  onMouseOver={this.handleMouseOver.bind(this)}>
                 {text}
