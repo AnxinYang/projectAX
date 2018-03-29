@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack": "webpack -w --mode development --module-bind js=babel-loader",
-    "start": "webpack-dev-server -w --mode development --module-bind js=babel-loader",
-    "dev": "webpack --devtool source-map ./src/index.js ./dist/main.js --mode production --module-bind js=babel-loader",
+    "webpack": "webpack --hot --mode development --module-bind js=babel-loader",
+    "start": "webpack-dev-server -w --hot --mode development --module-bind js=babel-loader",
+    "dev": "webpack -w --devtool inline-source-map --mode production --module-bind js=babel-loader",
     "build": "webpack --mode production --module-bind js=babel-loader"
   },
   "repository": {

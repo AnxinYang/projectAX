@@ -23,7 +23,8 @@ export default class Header extends Component {
     render () {
         return (
             <div style={headerStyle}>
-                <Button text="Hom2sade"/>
+                <Button text="Home"/>
+                <Button text="Playground"/>
             </div>
         )
     }
