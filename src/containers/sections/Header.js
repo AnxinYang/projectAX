@@ -2,7 +2,7 @@
  * Created by Anxin Yang on 3/28/2018.
  */
 import React, {Component} from 'react';
-
+import Button from '../../components/inputs/Button'
 export default class Header extends Component {
     constructor(props){
         super(props);
@@ -18,7 +18,9 @@ export default class Header extends Component {
     }
     render () {
         return (
-            <div>Header</div>
+            <div>
+                <Button text="Hello world"/>
+            </div>
         )
     }
 }
