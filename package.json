@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "./node_modules/.bin/webpack-dev-server --config ./webpack/webpack.dev.config.js"
+    "start": "webpack-dev-server --mode development --open --module-bind js=babel-loader",
+    "dev": "webpack --mode development --module-bind js=babel-loader",
+    "build": "webpack --mode production --module-bind js=babel-loader"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -45,6 +47,7 @@
     "css-loader": "^0.28.11",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
-    "style-loader": "^0.20.3"
+    "style-loader": "^0.20.3",
+    "webpack-cli": "^2.0.13"
   }
 }
