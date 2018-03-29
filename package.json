@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --module-bind js=babel-loader",
-    "dev": "webpack --mode development --module-bind js=babel-loader",
+    "webpack": "webpack -w --mode development --module-bind js=babel-loader",
+    "start": "webpack-dev-server -w --mode development --module-bind js=babel-loader",
+    "dev": "webpack --devtool source-map ./src/index.js ./dist/main.js --mode production --module-bind js=babel-loader",
     "build": "webpack --mode production --module-bind js=babel-loader"
   },
   "repository": {
@@ -45,9 +46,14 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
     "css-loader": "^0.28.11",
+    "express": "^4.16.3",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
+    "proxy-middleware": "^0.15.0",
+    "react-hot-loader": "^4.0.0",
     "style-loader": "^0.20.3",
-    "webpack-cli": "^2.0.13"
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-middleware": "^3.1.0",
+    "webpack-hot-middleware": "^2.21.2"
   }
 }

@@ -3,6 +3,10 @@
  */
 import React, {Component} from 'react';
 import Button from '../../components/inputs/Button'
+const headerStyle = {
+    display:'flex',
+    flexWrap: 'wrap'
+};
 export default class Header extends Component {
     constructor(props){
         super(props);
@@ -18,8 +22,8 @@ export default class Header extends Component {
     }
     render () {
         return (
-            <div>
-                <Button text="Hello world"/>
+            <div style={headerStyle}>
+                <Button text="Hom2sade"/>
             </div>
         )
     }

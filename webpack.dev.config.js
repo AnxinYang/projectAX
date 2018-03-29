@@ -1,44 +1,22 @@
-/**
- * Created by Anxin Yang on 3/28/2018.
- */
-var webpack = require('webpack');
-var path = require('path');
-
-var parentDir = path.join(__dirname, '../');
-
 module.exports = {
-    entry: {
-        app: './index.js',
-        vendor: ["react", "react-dom"]
-    },
+    entry: [
+        './src/index.js'
+    ],
     module: {
-        rules: [{
-            test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
-            use: {
-                loader: 'babel-loader',
+        rules: [
+            {
+                test: /js?$/,
+                exclude: /node_modules/,
+                use: ['babel-loader']
             }
-        },{
-            test: /\.less$/,
-            loaders: ["style-loader", "css-loder", "less-loader"]
-        },
-
         ]
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ['.js', '.jsx']
     },
-    plugins: [
-        new webpack.LoaderOptionsPlugin({
-            debug: true
-        })
-    ],
     output: {
-        path: parentDir + '/dist',
+        path: __dirname + '/dist/',
         filename: 'bundle.js'
     },
-    devServer: {
-        contentBase: parentDir,
-        historyApiFallback: true
-    }
-}
+    devtool: 'source-map'
+};
