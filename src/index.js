@@ -7,12 +7,14 @@ import ReactDOM from 'react-dom';
 // main app
 import App from './containers/App';
 import Button from './components/inputs/Button'
+import FileParser from './components/inputs/FileParser'
 import {report} from './pvts/general'
 
 window.componentMap = {
-    Button: Button
+    Button: Button,
+    FileParser:FileParser
 };
-export const getComponent = (name,props)=>{
+window.getComponent = (name,props)=>{
     return React.createElement(componentMap[name],props);
 };
 
