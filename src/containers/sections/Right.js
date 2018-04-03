@@ -11,6 +11,6 @@ export default class Right extends Component {
         }
     }
     render () {
-        return <p>This is my new react app</p>
+        return <p></p>
     }
 }

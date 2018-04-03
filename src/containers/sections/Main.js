@@ -11,9 +11,14 @@ export default class Main extends Component {
         }
     }
     render () {
+        var numCol = 2;
+        var width = 100/2-5;
         return(
-            <div>
-            <FileParser/>
+            <div style={{border:'2px solid black', display:'flex',flexWrap:'wrap'}}>
+                <div style={{paddingBottom:'1em',paddingRight:'12px',justifyContent:'space-between', display:'flex','width':width+'%'}}><label style={{flexGrow:1}}>Inpudsdsaddadsadadsadt1</label><input style={{flexGrow:1}}/></div>
+                <div style={{paddingBottom:'1em',paddingRight:'12px',justifyContent:'space-between', display:'flex','width':width+'%'}}><label style={{flexGrow:1}}>Inpuds</label><input style={{flexGrow:1}}/></div>
+                <div style={{paddingBottom:'1em',paddingRight:'12px',justifyContent:'space-between', display:'flex','width':width+'%'}}><label style={{flexGrow:1}}>Insadt1</label><input style={{flexGrow:1}}/></div>
+                <div style={{paddingBottom:'1em',paddingRight:'12px',justifyContent:'space-between', display:'flex','width':width+'%'}}><label style={{flexGrow:1}}>Inpudsdsassssssssssssssssssssssssssssssssssdddsadt1</label><input style={{flexGrow:1}}/></div>
             </div>
         )
     }
