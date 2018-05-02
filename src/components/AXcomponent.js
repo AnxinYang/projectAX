@@ -4,7 +4,7 @@ export default class AXcomponent extends Component{
         super(props);
         let name = this.props.name || 'Common';
         this.subList = [];
-        this.sub(name + 'Reg',()=>{
+        this.sub(name + 'Reg',(msg)=>{
             //Maybe do something here later.
         });
         let subList = this.props.subList || [];
