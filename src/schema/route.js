@@ -7,6 +7,21 @@ var obj = {
         fields:[
             {name:'header', schemaName:'header', type:'FlexBox'}
         ]
+    },
+    'playground':{
+        fields:[
+            {name:'header', schemaName:'header', type:'FlexBox'}
+        ]
+    },
+    'project':{
+        fields:[
+            {name:'header', schemaName:'header', type:'FlexBox'}
+        ]
+    },
+    'about':{
+        fields:[
+            {name:'header', schemaName:'header', type:'FlexBox'}
+        ]
     }
 };
 window.schemaMap = Object.assign({},window.schemaMap,obj);

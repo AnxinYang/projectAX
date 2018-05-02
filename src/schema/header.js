@@ -30,6 +30,10 @@ var obj = {
                     mouseOver:{
                         color: '#0abde3',
                         background: 'white'
+                    },
+                    selected:{
+                        color: '#0abde3',
+                        background: 'white'
                     }
                 };
 
@@ -37,13 +41,14 @@ var obj = {
                     store.set('view', view);
                     cc.pub('setView');
                 };
-
+                var currentView = store.get('view');
+                
                 return (
                     <div style={headerStyle}>
-                        <Button styleSet={headerButtonStyleSet} action='setView' value="home" text="Home" handleClick={()=>{switchView('home')}}/>
-                        <Button styleSet={headerButtonStyleSet} action='setView' value="playground" text="Playground" handleClick={()=>{switchView('playground')}}/>
-                        <Button styleSet={headerButtonStyleSet} action='setView' value="project" text="Project" handleClick={()=>{switchView('project')}}/>
-                        <Button styleSet={headerButtonStyleSet} action='setView' value="about" text="About" handleClick={()=>{switchView('about')}}/>
+                        <Button styleSet={headerButtonStyleSet} status={(currentView==='home')?'selected':'normal'} text="Home" handleClick={()=>{switchView('home')}}/>
+                        <Button styleSet={headerButtonStyleSet} status={(currentView==='playground')?'selected':'normal'} text="Playground" handleClick={()=>{switchView('playground')}}/>
+                        <Button styleSet={headerButtonStyleSet} status={(currentView==='project')?'selected':'normal'} text="Project" handleClick={()=>{switchView('project')}}/>
+                        <Button styleSet={headerButtonStyleSet} status={(currentView==='about')?'selected':'normal'} text="About" handleClick={()=>{switchView('about')}}/>
                     </div>
                 )
             }}
