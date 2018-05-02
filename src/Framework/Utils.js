@@ -3,9 +3,10 @@
  */
 const DEBUGMODE = true;
 const obj = {
-    execute: (f, options) => {
+    execute: (owner,f, options) => {
         if (f !== undefined) {
-            return f.call(this,options);
+            return f.call(owner
+                ,options);
         }
     },
     ifExist: (key, then) => {
@@ -14,7 +15,7 @@ const obj = {
                 then = key !== undefined;
                 return then;
             }
-            execute(then);
+            execute(undefined,then);
         }
     },
 

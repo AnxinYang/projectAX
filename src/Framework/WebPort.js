@@ -12,7 +12,7 @@ const WebPort = {
         let dataType = request.dataType || 'json';
         let before = request.before;
 
-        execute(before);
+        execute(undefined,before);
 
         $.ajax({
             url:url,
@@ -20,10 +20,10 @@ const WebPort = {
             contentType: contentType,
             dataType:dataType,
             success: function(res){
-                execute(success,res);
+                execute(undefined,success,res);
             },
             fail: function (res) {
-                execute(fail,res);
+                execute(undefined,fail,res);
             }
         });
     }

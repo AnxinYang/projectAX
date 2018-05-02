@@ -27,23 +27,21 @@ export default class AXcomponent extends Component{
         })
     }
     componentWillMount(){
-        if(this.props.init)
-            this.props.init.call(this);
-        execute.call(this,this.AXWillMount);
+        execute(this,this.props.init);
+        execute(this,this.AXWillMount);
     }
     componentDidMount(){
-        execute(this.AXDidMount);
+        execute(this,this.AXDidMount);
     }
     componentWillUpdate(){
-        if(this.props.init)
-            this.props.init.call(this);
-        execute.call(this,this.AXWillUpdate);
+        execute(this,this.props.init);
+        execute(this,this.AXWillUpdate);
     }
     componentDidUpdate(){
-        execute.call(this,this.AXDidUpdate);
+        execute(this,this.AXDidUpdate);
     }
     componentWillUnmount(){
         this.unSub();
-        execute.call(this,this.AXWillUnmount);
+        execute(this,this.AXWillUnmount);
     }
 }
