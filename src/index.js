@@ -5,15 +5,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // main app
-import App from './containers/App';
-import Button from './components/inputs/Button'
-import {report} from './pvts/general'
+import schema from './schema/schema';
+import Utils from './Framework/Utils';
+import ControlCenter from './Framework/ControlCenter';
+import Button from './components/inputs/Button';
+import FlexBox from './components/FlexBox';
+import Main from './components/Main';
 
 window.componentMap = {
-    Button: Button
+    Button: Button,
+    FlexBox: FlexBox
 };
+
+const debugMode =true;
+
+const cc = new ControlCenter();
+
 export const getComponent = (name,props)=>{
     return React.createElement(componentMap[name],props);
 };
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+ReactDOM.render(
+    <Main/>,
+    document.getElementById('app'));

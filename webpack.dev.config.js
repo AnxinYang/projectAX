@@ -18,6 +18,6 @@ module.exports = {
         path: __dirname + '/dist/',
         filename: 'bundle.js'
     },
-    devtool: 'inline-source-map',
+    devtool: 'cheap-eval-source-map',
     debug: true,
 };
