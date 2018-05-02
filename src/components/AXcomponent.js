@@ -6,8 +6,14 @@ export default class AXcomponent extends Component{
         this.subList = [];
         this.sub(name + 'Reg',()=>{
             //Maybe do something here later.
+        });
+        let subList = this.props.subList || [];
+        subList.forEach((sub)=>{
+            this.sub(sub.topic, sub.updater.bind(this))
         })
     }
+
+
     sub(topic, updater){
         let name = this.props.name || 'Common';
         this.subList.push(cc.sub(topic, updater, name));
@@ -21,19 +27,23 @@ export default class AXcomponent extends Component{
         })
     }
     componentWillMount(){
-        execute(this.AXWillMount);
+        if(this.props.init)
+            this.props.init.call(this);
+        execute.call(this,this.AXWillMount);
     }
     componentDidMount(){
         execute(this.AXDidMount);
     }
     componentWillUpdate(){
-        execute(this.AXWillUpdate);
+        if(this.props.init)
+            this.props.init.call(this);
+        execute.call(this,this.AXWillUpdate);
     }
     componentDidUpdate(){
-        execute(this.AXDidUpdate);
+        execute.call(this,this.AXDidUpdate);
     }
     componentWillUnmount(){
         this.unSub();
-        execute(this.AXWillUnmount);
+        execute.call(this,this.AXWillUnmount);
     }
 }

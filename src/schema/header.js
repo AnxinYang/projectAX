@@ -31,18 +31,22 @@ const headerButtonStyleSet={
         background: 'white'
     }
 };
-const switchView = (view) =>{
+var switchView = (view) =>{
     store.set('view', view);
     cc.pub('setView');
+};
+function setButtonStatus (){
+    var status = store.get('view') === this.props.name?'selected':'normal';
+    this.setState(Object.assign({},this.state,{status:status}));
 };
 var obj = {
     'header':{
         style: headerStyle,
         fields:[
-            {name:'home', type:'Button', styleSet:headerButtonStyleSet, status:'normal', text:"Home", handleClick:()=>{switchView('home')}},
-            {name:'playground', type:'Button', styleSet:headerButtonStyleSet, status:'normal', text:"Playground", handleClick:()=>{switchView('playground')}},
-            {name:'project', type:'Button', styleSet:headerButtonStyleSet, status:'normal', text:"Project", handleClick:()=>{switchView('project')}},
-            {name:'about', type:'Button', styleSet:headerButtonStyleSet, status:'normal', text:"About", handleClick:()=>{switchView('about')}},
+            {name:'home', type:'Button', styleSet:headerButtonStyleSet, status:'normal', text:"Home", subList:[{topic:'setView',updater: setButtonStatus}], handleClick:()=>{switchView('home')}},
+            {name:'playground', type:'Button', styleSet:headerButtonStyleSet, status:'normal', text:"Playground", subList:[{topic:'setView',updater: setButtonStatus}], handleClick:()=>{switchView('playground')}},
+            {name:'project', type:'Button', styleSet:headerButtonStyleSet, status:'normal', text:"Project", subList:[{topic:'setView',updater: setButtonStatus}], handleClick:()=>{switchView('project')}},
+            {name:'about', type:'Button', styleSet:headerButtonStyleSet, status:'normal', text:"About", subList:[{topic:'setView',updater: setButtonStatus}], handleClick:()=>{switchView('about')}},
         ]
     }
 };

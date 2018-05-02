@@ -14,7 +14,6 @@ export default class Main extends AXcomponent{
             let newState = {
                 view: store.get('view')
             };
-            debug('Main = >' + JSON.stringify(newState));
             self.setState(Object.assign({},self.state, newState));
         });
     }

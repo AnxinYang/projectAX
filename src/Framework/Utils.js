@@ -5,7 +5,7 @@ const DEBUGMODE = true;
 const obj = {
     execute: (f, options) => {
         if (f !== undefined) {
-            return f(options);
+            return f.call(this,options);
         }
     },
     ifExist: (key, then) => {

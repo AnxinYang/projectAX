@@ -35,7 +35,7 @@ export default class Button extends Field{
     render(){
         var text = this.props.text||'Button';
         var styleSet = this.props.styleSet || {normal:{cursor:'Pointer'}};
-        var status = this.props.status || 'normal';
+        var status = this.state.status || this.props.status || 'normal';
         var style = styleSet['normal'];
         var addOnStyle = styleSet[status] || {};
         if(this.state.isMouseOver){
