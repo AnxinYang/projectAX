@@ -55,7 +55,7 @@ export default class FlexBox extends Component {
 
 
     renderChildren(){
-        this.schema = getSchema(this.schemaName);
+        this.schema = getSchema(this.props.schemaName);
         if(this.schema===undefined){
             return null;
         }
@@ -79,7 +79,7 @@ export default class FlexBox extends Component {
 
     render(){
         var self = this;
-        self.schema = getSchema(this.schemaName) || {};
+        self.schema = getSchema(this.props.schemaName) || {};
         self.style = Object.assign({},{'display':'flex'}, self.props.style,self.schema.style);
         return(
             <div ref='_me_' style = {self.style}>

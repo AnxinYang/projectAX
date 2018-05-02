@@ -21,7 +21,7 @@ export default class Main extends Component{
     render(){
         let FlexBox = componentMap['FlexBox'];
         return(
-            <FlexBox schemaName = {this.state.view} style={{height:'100vh',width:'100vw'}}/>
+            <FlexBox schemaName = {this.state.view} type={'FlexBox'} style={{height:'100vh',width:'100vw'}}/>
         )
     }
 

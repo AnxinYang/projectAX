@@ -41,9 +41,9 @@ var obj = {
                 return (
                     <div style={headerStyle}>
                         <Button styleSet={headerButtonStyleSet} action='setView' value="home" text="Home" handleClick={()=>{switchView('home')}}/>
-                        <Button styleSet={headerButtonStyleSet} action='setView' value="playground" text="Playground" handleClick={()=>{switchView('Playground')}}/>
-                        <Button styleSet={headerButtonStyleSet} action='setView' value="project" text="Project" handleClick={()=>{switchView('Project')}}/>
-                        <Button styleSet={headerButtonStyleSet} action='setView' value="about" text="About" handleClick={()=>{switchView('About')}}/>
+                        <Button styleSet={headerButtonStyleSet} action='setView' value="playground" text="Playground" handleClick={()=>{switchView('playground')}}/>
+                        <Button styleSet={headerButtonStyleSet} action='setView' value="project" text="Project" handleClick={()=>{switchView('project')}}/>
+                        <Button styleSet={headerButtonStyleSet} action='setView' value="about" text="About" handleClick={()=>{switchView('about')}}/>
                     </div>
                 )
             }}
