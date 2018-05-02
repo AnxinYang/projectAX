@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack": "webpack --hot --mode development --module-bind js=babel-loader css=css-loader",
+    "init": "npm install",
     "start": "webpack-dev-server -w --hot --mode development --module-bind js=babel-loader css=style-loader",
     "dev": "webpack -w --mode development --module-bind js=babel-loader css=css-loader",
-    "build": "webpack --mode production --module-bind js=babel-loader"
+    "build": "webpack --mode production --module-bind js=babel-loader  css=style-loader"
   },
   "repository": {
     "type": "git",
