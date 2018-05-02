@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack": "webpack --hot --mode development --module-bind js=babel-loader",
-    "start": "webpack-dev-server -w --hot --mode development --module-bind js=babel-loader",
-    "dev": "webpack -w --devtool inline-source-map --mode development --module-bind js=babel-loader",
+    "webpack": "webpack --hot --mode development --module-bind js=babel-loader css=css-loader",
+    "start": "webpack-dev-server -w --hot --mode development --module-bind js=babel-loader css=style-loader",
+    "dev": "webpack -w --mode development --module-bind js=babel-loader css=css-loader",
     "build": "webpack --mode production --module-bind js=babel-loader"
   },
   "repository": {
@@ -30,8 +30,10 @@
     ]
   },
   "dependencies": {
+    "namor": "^1.0.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-table": "^6.8.0",
     "webpack": "^4.3.0",
     "webpack-dev-server": "^3.1.1"
   },
