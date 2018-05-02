@@ -26,5 +26,10 @@ module.exports = {
         path: __dirname + '/dist/',
         filename: '[name].js'
     },
+<<<<<<< HEAD:webpack.config.js
     devtool: 'inline-source-map'
+=======
+    devtool: 'cheap-eval-source-map',
+    debug: true,
+>>>>>>> a2cb196748061c1f105f931bee3935f1b29574c1:webpack.dev.config.js
 };

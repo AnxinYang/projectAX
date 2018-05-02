@@ -25,13 +25,10 @@ export default class Button extends Component{
 
     handleClick(e){
         var handleClick = this.props.handleClick;
-        var value = this.props.value;
-        var action = this.props.action;
-        var msg = {
-            action: action,
-            value:value
-        };
-        handleClick&&handleClick(msg);
+        var self = this;
+        if(handleClick){
+            handleClick.call(self,e);
+        }
     }
 
     render(){
