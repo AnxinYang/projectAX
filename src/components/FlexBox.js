@@ -1,8 +1,9 @@
 /**
  * Created by Anxin Yang on 5/1/2018.
  */
-import React, { Component } from 'react';
-export default class FlexBox extends Component {
+import AXcomponent from './AXcomponent';
+import React from 'react';
+export default class FlexBox extends AXcomponent {
     constructor(props) {
         super(props);
 

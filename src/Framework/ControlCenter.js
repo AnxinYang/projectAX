@@ -34,9 +34,30 @@ export default class ControlCenter {
         if(topicList===undefined){
             topicList = []
         }
-        topicList.push(updater);
+
+        let topicIndex = topicList.length;
+        let topicTicket;
+
+        topicList[topicIndex] = updater;
+
         this.topicMap[topic] = topicList;
         debug('Sub: ' + topic);
+
+        topicTicket = {
+            index: topicIndex,
+            topic: topic,
+        };
+
+        return topicTicket;
+    }
+
+    unSub(topicTicket){
+        let topic = topicTicket.topic;
+        let topicIndex = topicTicket.index;
+        let topicMap = this.topicMap;
+        let topicList = topicMap[topic] || [];
+        topicList.splice(topicIndex,1);
+        debug('sub ' + topic + 'removed')
     }
 
 }

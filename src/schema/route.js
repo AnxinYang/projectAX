@@ -20,7 +20,7 @@ var obj = {
     },
     'about':{
         fields:[
-            {name:'header', schemaName:'header', type:'FlexBox'}
+            //{name:'header', schemaName:'header', type:'FlexBox'}
         ]
     }
 };

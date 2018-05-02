@@ -1,9 +1,9 @@
 /**
  * Created by Anxin Yang on 5/1/2018.
  */
-import React, { Component } from 'react';
-
-export default class Main extends Component{
+import AXcomponent from './AXcomponent';
+import React from 'react';
+export default class Main extends AXcomponent{
     constructor(props){
         super(props);
         this.state = {
