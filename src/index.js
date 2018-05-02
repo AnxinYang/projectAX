@@ -26,5 +26,5 @@ export const getComponent = (name,props)=>{
 };
 
 ReactDOM.render(
-    <Main/>,
+    <Main name={'mainContainer'}/>,
     document.getElementById('app'));

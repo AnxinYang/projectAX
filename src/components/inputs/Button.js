@@ -2,7 +2,8 @@
  * Created by Anxin Yang on 3/28/2018.
  */
 import React, {Component} from 'react';
-export default class Button extends Component{
+import Field from "./Field";
+export default class Button extends Field{
     constructor(props){
         super(props);
         this.state={

@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 export default class AXcomponent extends Component{
     constructor(props){
         super(props);
+        let name = this.props.name || 'Common';
         this.subList = [];
-        this.sub('test',()=>{
-
+        this.sub(name + 'Reg',()=>{
+            //Maybe do something here later.
         })
     }
     sub(topic, updater){
-        this.subList.push(cc.sub(topic,updater));
+        let name = this.props.name || 'Common';
+        this.subList.push(cc.sub(topic, updater, name));
     }
     pub(topic, msg){
         cc.pub(topic,msg);

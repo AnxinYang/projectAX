@@ -10,7 +10,7 @@ export default class Main extends AXcomponent{
             view: 'home'
         };
         let self = this;
-        cc.sub('setView',(msg)=>{
+        this.sub('setView',(msg)=>{
             let newState = {
                 view: store.get('view')
             };
@@ -21,7 +21,7 @@ export default class Main extends AXcomponent{
     render(){
         let FlexBox = componentMap['FlexBox'];
         return(
-            <FlexBox schemaName = {this.state.view} type={'FlexBox'} style={{height:'100vh',width:'100vw'}}/>
+            <FlexBox name={this.state.view} schemaName = {this.state.view} type={'FlexBox'} style={{height:'100vh',width:'100vw'}}/>
         )
     }
 

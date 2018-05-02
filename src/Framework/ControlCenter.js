@@ -12,22 +12,23 @@ export default class ControlCenter {
     init(){
         window.cc = this;
         this.topicMap = {};
-        debug('cc init');
+        debug('Init: cc');
     }
 
     pub(topic, msg){
         let topicMap = this.topicMap;
         let updater = ()=>{
             let topicList = topicMap[topic];
-            topicList.forEach((sub)=>{
-                sub(msg);
+            topicList.forEach((reg)=>{
+                reg.updater(msg);
+                debug('Pub: ' + topic + ' => ' + reg.ticket.owner);
             })
         };
         ifExist(topicMap[topic],updater);
-        debug('Pub: ' + topic);
+
     }
 
-    sub(topic, updater){
+    sub(topic, updater, owner){
         let topicMap = this.topicMap;
         let topicList = topicMap[topic];
 
@@ -36,17 +37,21 @@ export default class ControlCenter {
         }
 
         let topicIndex = topicList.length;
-        let topicTicket;
-
-        topicList[topicIndex] = updater;
-
-        this.topicMap[topic] = topicList;
-        debug('Sub: ' + topic);
-
-        topicTicket = {
+        let topicTicket = {
             index: topicIndex,
             topic: topic,
+            owner: owner || 'Common'
         };
+
+        topicList[topicIndex] = {
+            ticket: topicTicket,
+            updater: updater
+        };
+
+        this.topicMap[topic] = topicList;
+        debug('Sub: '  + (owner||'Common') + ' => ' + topic);
+
+
 
         return topicTicket;
     }
@@ -54,10 +59,18 @@ export default class ControlCenter {
     unSub(topicTicket){
         let topic = topicTicket.topic;
         let topicIndex = topicTicket.index;
+        let owner = topicTicket.owner;
         let topicMap = this.topicMap;
         let topicList = topicMap[topic] || [];
         topicList.splice(topicIndex,1);
-        debug('sub ' + topic + 'removed')
+
+        debug('Removed: ' + owner + ' <= ' + topic);
+
+        if(topicList.length===0){
+            delete topicMap[topic];
+            debug('Removed: [' + topic + '] - All tickets are removed');
+        }
+
     }
 
 }
