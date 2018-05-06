@@ -280,7 +280,7 @@ export default class networkDiagram extends AXcomponent {
                 node.slot.node = undefined;
                 node.slot = undefined;
             }
-            
+
         }, 256);
         this.dragTimer = dragTimer;
     }
@@ -292,7 +292,7 @@ export default class networkDiagram extends AXcomponent {
 
         node.dropX = (e.clientX - rect.left);
         node.dropY = (e.clientY - rect.top);
-        debug(node.dropX + ',' + node.dropY + '|' + e.clientX + ',' + e.clientY)
+        debug(node.dropX + ',' + node.dropY + '|' + e.clientX + ',' + e.clientY);
         node.g.attr("transform", "translate(" + node.dropX + "," + node.dropY + ")");
     }
 
@@ -318,7 +318,12 @@ export default class networkDiagram extends AXcomponent {
         }, 0);
     }
 
-    appendLinks() {
+    appendLinks(svg,_linkList) {
+        let linkList = _linkList || [];
+
+        if (linkList.length === 0) {
+            return;
+        }
 
     }
 
@@ -339,7 +344,7 @@ export default class networkDiagram extends AXcomponent {
         //debug(JSON.stringify(this.sectorMap));
 
         this.appendNodes(this.svg, this.nodeList);
-        this.appendLinks();
+        this.appendLinks(this.svg, this.linkList);
     }
 
     AXWillUnmount() {
