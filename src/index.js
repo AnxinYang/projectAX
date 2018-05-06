@@ -11,13 +11,14 @@ import ControlCenter from './Framework/ControlCenter';
 import Button from './components/inputs/Button';
 import FlexBox from './components/FlexBox';
 import Main from './components/Main';
-
+import networkDiagram from './components/playground/networkDiagram'
 window.componentMap = {
     Button: Button,
-    FlexBox: FlexBox
+    FlexBox: FlexBox,
+    networkDiagram:networkDiagram
 };
 
-const debugMode =true;
+window.debugMode =true;
 
 const cc = new ControlCenter();
 

@@ -19,8 +19,9 @@ export default class Main extends AXcomponent{
     }
     render(){
         let FlexBox = componentMap['FlexBox'];
+
         return(
-            <FlexBox name={this.state.view} schemaName = {this.state.view} type={'FlexBox'} style={{height:'100vh',width:'100vw'}}/>
+            <FlexBox name={this.state.view} schemaName = {this.state.view} type={'FlexBox'} style={{height:'100vh',width:'100vw',flexWrap:'wrap',alignContent:'flex-start'}}/>
         )
     }
 

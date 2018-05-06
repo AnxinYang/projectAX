@@ -8,10 +8,12 @@ window.storeMap = {};
  const Store = {
 
     set(key,data){
-        window.storeMap[key] = data;
+        if(key !==undefined)
+            window.storeMap[key] = data;
     },
     get(key){
-        return window.storeMap[key];
+        if(key !==undefined)
+            return window.storeMap[key];
     }
 
 };

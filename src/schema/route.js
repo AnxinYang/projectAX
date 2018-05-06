@@ -2,6 +2,7 @@
  * Created by Anxin Yang on 5/1/2018.
  */
 import React, {Component} from 'react';
+
 var obj = {
     'home':{
         fields:[
@@ -10,7 +11,8 @@ var obj = {
     },
     'playground':{
         fields:[
-            {name:'header', schemaName:'header', type:'FlexBox'}
+            {name:'header', schemaName:'header', type:'FlexBox'},
+            {name:'playground', type: 'networkDiagram', nodeKey:'nodeList'}
         ]
     },
     'project':{
