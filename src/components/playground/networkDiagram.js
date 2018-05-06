@@ -50,6 +50,7 @@ const SVG_CONTAINER_STYLE = {
 const INNER_RADIUS = 100;
 const NODE_SIZE = 15;
 const NODE_MARGIN = 10;
+const LINK_CURVE_FACTOR = 10;
 const SECTOR_MARGIN = 30;
 
 //=======
@@ -67,11 +68,12 @@ export default class networkDiagram extends AXcomponent {
         this.loadData(props);
         this.movedNodeList = [];
         this.movedNodeMap = {};
+        this.sub('Reset/networkDiagram',this.resetNodes.bind(this));
     }
 
     loadData(props) {
-        this.nodeList = generateList(props.nodeKey) && GET(props.nodeKey);
-        this.linkList = GET(props.linkKey);
+        this.nodeList = generateList(props.nodeKey) && GET(props.nodeKey) || [];
+        this.linkList = GET(props.linkKey) || [];
 
         this.nodeMap = CREATE_MAP_FROM_LIST(this.nodeList);
         this.linkMap = CREATE_MAP_FROM_LIST(this.linkList);
@@ -94,6 +96,8 @@ export default class networkDiagram extends AXcomponent {
             .on('mouseup', ()=> {
                 this.nodeMouseUp();
             });
+        svg.link = svg.append('g').attr('id', 'link');
+        svg.node = svg.append('g').attr('id', 'node');
         return svg;
     }
 
@@ -180,7 +184,7 @@ export default class networkDiagram extends AXcomponent {
         return isVaildSlot;
     }
 
-    appendNodes(svg, _nodeList) {
+    appendNodes(svg, _nodeList, reset) {
         let nodeList = _nodeList || [];
 
         if (nodeList.length === 0) {
@@ -193,10 +197,10 @@ export default class networkDiagram extends AXcomponent {
         let counter = 0;
 
         nodeList.forEach((node)=> {
-            if (node.g) {
+            if (node.g && !reset) {
                 return;
             }
-
+            this.reset = false; 
             let sector = sectorMap[sectorLevel];
             let capacity = sector.sectorCapacity;
             let slot = sector.sectorSlots[counter];
@@ -212,29 +216,31 @@ export default class networkDiagram extends AXcomponent {
             }
             slot.node = node;
             node.slot = slot;
-            node.g = svg.append('g')
-                .attr('id', node.id)
-                .attr('width', nodeSize)
-                .attr('height', nodeSize)
-                .attr("transform", "translate(" + slot.x + "," + slot.y + ")")
-                .attr('cursor', 'pointer')
-                .style('position','absolute')
-                .style('left',slot.x)
-                .style('top',slot.y)
-                .style('transition', '0.1s')
-                .on('click', ()=> {
-                    this.nodeClick(node);
-                })
-                .on('mousedown', ()=> {
-                    this.nodeMouseDown(node);
-                })
-                .on('mouseup', ()=> {
-                    this.nodeMouseUp(node);
-                });
-            node.circle = node.g.append('circle')
-                .attr('r', nodeSize / 2)
-                .attr('fill', 'green')
-                .style('transition', '0.3s');
+
+            if (node.g) {
+                node.g.attr("transform", "translate(" + (node.dropX || slot.x) + "," + (node.dropY || slot.y) + ")");
+            }else {
+                node.g = svg.node.append('g')
+                    .attr('id', node.id)
+                    .attr('width', nodeSize)
+                    .attr('height', nodeSize)
+                    .attr("transform", "translate(" + (node.dropX || slot.x) + "," + (node.dropY || slot.y) + ")")
+                    .attr('cursor', 'pointer')
+                    .style('transition', '0.1s')
+                    .on('click', ()=> {
+                        this.nodeClick(node);
+                    })
+                    .on('mousedown', ()=> {
+                        this.nodeMouseDown(node);
+                    })
+                    .on('mouseup', ()=> {
+                        this.nodeMouseUp(node);
+                    });
+                node.circle = node.g.append('circle')
+                    .attr('r', nodeSize / 2)
+                    .attr('fill', 'green')
+                    .style('transition', '0.3s');
+            }
             counter++;
             if (counter === capacity) {
                 counter = 0;
@@ -294,6 +300,28 @@ export default class networkDiagram extends AXcomponent {
         node.dropY = (e.clientY - rect.top);
         debug(node.dropX + ',' + node.dropY + '|' + e.clientX + ',' + e.clientY);
         node.g.attr("transform", "translate(" + node.dropX + "," + node.dropY + ")");
+
+        for(var id in node.linkMap){
+            let link = node.linkMap[id];
+            let src = this.nodeMap[link.srcId];
+            let tar = this.nodeMap[link.tarId];
+            let srcXY = {
+                x: src.dropX || src.slot.x,
+                y: src.dropY || src.slot.y
+            };
+            let tarXY = {
+                x: tar.dropX || tar.slot.x,
+                y: tar.dropY || tar.slot.y
+            };
+
+            let offset = src.tarMap[tar.id].indexOf(link)+1;
+            if(offset%2===0){
+                offset =  -(offset-1);
+            }
+
+            let path = this.linkPathGenerator(srcXY,tarXY,LINK_CURVE_FACTOR, offset);
+            link.path.attr("d", path.toString())
+        }
     }
 
     nodeDragEnd(node) {
@@ -306,6 +334,20 @@ export default class networkDiagram extends AXcomponent {
             this.movedNodeList.push(node);
         }
 
+    }
+
+    resetNodes(){
+        let containerId = this.props.containerId || SVG_CONTAINER_ID;
+
+        this.sectorMap = this.createSectors(this.refs[containerId]);
+        this.movedNodeList.forEach((node)=>{
+            node.dropX = undefined;
+            node.dropY = undefined;
+        });
+
+        this.reset = true;
+
+        this.forceUpdate();
     }
 
     nodeMouseUp(node) {
@@ -326,6 +368,8 @@ export default class networkDiagram extends AXcomponent {
             return;
         }
 
+        let counter = 0;
+
         linkList.forEach((link)=>{
             let src = nodeMap[link.srcId];
             let tar = nodeMap[link.tarId];
@@ -338,15 +382,29 @@ export default class networkDiagram extends AXcomponent {
                 y: tar.dropY || tar.slot.y
             };
 
+            if(src.tarMap === undefined){
+                src.tarMap = {}
+            }
+
+            if(src.tarMap[tar.id]===undefined){
+                src.tarMap[tar.id] = [];
+            }
+            if( src.tarMap[tar.id].indexOf(link)<0) {
+                src.tarMap[tar.id].push(link);
+            }
+
             let nodeLinkMap = {};
             nodeLinkMap[link.id] = link;
-
             src.linkMap = Object.assign({},src.linkMap,nodeLinkMap);
             tar.linkMap = Object.assign({},tar.linkMap,nodeLinkMap);
 
+            let offset = src.tarMap[tar.id].indexOf(link)+1;
+            if(offset%2===0){
+                offset =  -(offset-1);
+            }
             if(link.path===undefined) {
-                let path = this.linkPathGenerator(srcXY,tarXY,10,1);
-                link.path = svg.append("path")
+                let path = this.linkPathGenerator(srcXY,tarXY,LINK_CURVE_FACTOR, offset);
+                link.path = svg.link.append("path")
                     .attr("d", path.toString())
                     .attr("stroke", 'darkgreen')
                     .attr("stroke-width", 2)
@@ -354,7 +412,7 @@ export default class networkDiagram extends AXcomponent {
                     .style("cursor", "pointer")
                     .style("transition", "0.3s");
             }else{
-                let path = this.linkPathGenerator(srcXY,tarXY,10,1);
+                let path = this.linkPathGenerator(srcXY,tarXY,LINK_CURVE_FACTOR, offset);
                 link.path.attr("d", path.toString());
             }
         })
@@ -417,15 +475,20 @@ export default class networkDiagram extends AXcomponent {
 
         //debug(JSON.stringify(this.sectorMap));
 
-        this.appendNodes(this.svg, this.nodeList);
+        this.appendNodes(this.svg, this.nodeList,this.reset);
         this.appendLinks(this.svg, this.linkList);
     }
 
     AXWillUnmount() {
+        let containerId = this.props.containerId || SVG_CONTAINER_ID;
         this.svg.selectAll('g').remove();
         this.nodeList.forEach((node)=> {
             node.g = undefined;
-        })
+        });
+        this.linkList.forEach((link)=> {
+            link.path = undefined;
+        });
+        this.sectorMap = this.createSectors(this.refs[containerId]);
     }
 
     render() {
