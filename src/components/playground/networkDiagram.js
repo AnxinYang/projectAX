@@ -337,19 +337,26 @@ export default class networkDiagram extends AXcomponent {
                 x: tar.dropX || tar.slot.x,
                 y: tar.dropY || tar.slot.y
             };
-            let path = this.linkPathGenerator(srcXY,tarXY,10,1);
+
             let nodeLinkMap = {};
             nodeLinkMap[link.id] = link;
 
             src.linkMap = Object.assign({},src.linkMap,nodeLinkMap);
             tar.linkMap = Object.assign({},tar.linkMap,nodeLinkMap);
-            svg.append("path")
-                .attr("d", path.toString())
-                .attr("stroke", 'darkgreen')
-                .attr("stroke-width", 2)
-                .attr("fill", "none")
-                .style("cursor", "pointer")
-                .style("transition", "0.3s");
+
+            if(link.path===undefined) {
+                let path = this.linkPathGenerator(srcXY,tarXY,10,1);
+                link.path = svg.append("path")
+                    .attr("d", path.toString())
+                    .attr("stroke", 'darkgreen')
+                    .attr("stroke-width", 2)
+                    .attr("fill", "none")
+                    .style("cursor", "pointer")
+                    .style("transition", "0.3s");
+            }else{
+                let path = this.linkPathGenerator(srcXY,tarXY,10,1);
+                link.path.attr("d", path.toString());
+            }
         })
 
     }
