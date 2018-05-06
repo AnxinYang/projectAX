@@ -12,7 +12,7 @@ var obj = {
     'playground':{
         fields:[
             {name:'header', schemaName:'header', type:'FlexBox'},
-            {name:'playground', type: 'networkDiagram', nodeKey:'nodeList'}
+            {name:'playground', type: 'networkDiagram', nodeKey:'nodeList', linkKey:'linkList'}
         ]
     },
     'project':{

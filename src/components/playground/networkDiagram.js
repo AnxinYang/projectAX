@@ -28,7 +28,7 @@ const generateList = function (storeKey) {
             let node = {
                 id: i+'',
                 name: 'name',
-                data: i * i
+                data: i * i,
             };
             list.push(node);
         }
@@ -71,7 +71,7 @@ export default class networkDiagram extends AXcomponent {
 
     loadData(props) {
         this.nodeList = generateList(props.nodeKey) && GET(props.nodeKey);
-        this.linkList = generateList(props.linkKey) && GET(props.linkKey);
+        this.linkList = GET(props.linkKey);
 
         this.nodeMap = CREATE_MAP_FROM_LIST(this.nodeList);
         this.linkMap = CREATE_MAP_FROM_LIST(this.linkList);
@@ -320,11 +320,78 @@ export default class networkDiagram extends AXcomponent {
 
     appendLinks(svg,_linkList) {
         let linkList = _linkList || [];
+        let nodeMap = this.nodeMap || {};
 
         if (linkList.length === 0) {
             return;
         }
 
+        linkList.forEach((link)=>{
+            let src = nodeMap[link.srcId];
+            let tar = nodeMap[link.tarId];
+            let srcXY = {
+                x: src.dropX || src.slot.x,
+                y: src.dropY || src.slot.y
+            };
+            let tarXY = {
+                x: tar.dropX || tar.slot.x,
+                y: tar.dropY || tar.slot.y
+            };
+            let path = this.linkPathGenerator(srcXY,tarXY,10,1);
+            let nodeLinkMap = {};
+            nodeLinkMap[link.id] = link;
+
+            src.linkMap = Object.assign({},src.linkMap,nodeLinkMap);
+            tar.linkMap = Object.assign({},tar.linkMap,nodeLinkMap);
+            svg.append("path")
+                .attr("d", path.toString())
+                .attr("stroke", 'darkgreen')
+                .attr("stroke-width", 2)
+                .attr("fill", "none")
+                .style("cursor", "pointer")
+                .style("transition", "0.3s");
+        })
+
+    }
+
+    linkPathGenerator(src,tar,factor,offset) {
+        var yt = tar.y
+        var xt = tar.x;
+        var xs = src.x;
+        var ys = src.y;
+
+        var k = (yt - ys) / (xt - xs);
+        var _k = -1 / k;
+        var b = yt - (k * xt);
+        var xm = (xt + xs) / 2;
+        var ym = (yt + ys) / 2;
+        var c = ym - (_k * xm);
+        let sign = offset>=0?1:-1;
+        var xn = xm + (offset) * factor;
+        let K =_k;
+        let L = Math.abs(offset*(factor));
+        xn = -sign*Math.sqrt((K*K+1)*L*L)+K*K*xm+xm;
+        xn = xn/(K*K+1);
+        var yn = xn * _k + c;
+        if (_k < 0) {
+            yn = ym + (offset) * factor;
+            xn = (c - yn) / (-_k);
+        }
+        if (Math.abs(xs - xt) < 20) {
+            xn = xm + (offset) * factor;
+            yn = ym;
+        }
+        if (Math.abs(ys - yt) < 20) {
+            yn = ym + (offset) * factor;
+            xn = xm;
+        }
+        //==
+
+        //==
+        let path = d3.path();
+        path.moveTo(xs, ys);
+        path.quadraticCurveTo(xn, yn, xt, yt);
+        return path;
     }
 
     AXDidMount() {
@@ -335,7 +402,7 @@ export default class networkDiagram extends AXcomponent {
         debug(JSON.stringify(this.sectorMap));
 
         this.appendNodes(this.svg, this.nodeList);
-        this.appendLinks();
+        this.appendLinks(this.svg, this.linkList);
     }
 
     AXDidUpdate() {
