@@ -162,13 +162,12 @@ export default class networkDiagram extends AXcomponent {
 
         movedNodeList.forEach((node)=> {
             let rect = {
-                top: node.dropY - NODE_SIZE/2,
-                bottom: node.dropY + NODE_SIZE/2,
-                left: node.dropX - NODE_SIZE/2,
-                right: node.dropX + NODE_SIZE/2
+                top: node.dropY - NODE_SIZE,
+                bottom: node.dropY + NODE_SIZE,
+                left: node.dropX - NODE_SIZE,
+                right: node.dropX + NODE_SIZE
             };
 
-            debugger
             if (slot.x > rect.left && slot.x < rect.right) {
                 isVaildSlot = !(slot.y > rect.top && slot.y < rect.bottom);
                 if (!isVaildSlot) {
@@ -270,8 +269,8 @@ export default class networkDiagram extends AXcomponent {
         let e = d3.event;
         let dragTimer = setTimeout(()=> {
             this.dragingNode = node;
+
             if (node.slot) {
-                debug(node.slot.x + ',' + node.slot.y );
                 let containerId = this.props.containerId || SVG_CONTAINER_ID;
                 let rect = document.getElementById(containerId).getBoundingClientRect();
 
@@ -281,6 +280,7 @@ export default class networkDiagram extends AXcomponent {
                 node.slot.node = undefined;
                 node.slot = undefined;
             }
+            
         }, 256);
         this.dragTimer = dragTimer;
     }
