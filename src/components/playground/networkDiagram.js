@@ -200,7 +200,7 @@ export default class networkDiagram extends AXcomponent {
             if (node.g && !reset) {
                 return;
             }
-            this.reset = false; 
+            this.reset = false;
             let sector = sectorMap[sectorLevel];
             let capacity = sector.sectorCapacity;
             let slot = sector.sectorSlots[counter];
@@ -461,7 +461,7 @@ export default class networkDiagram extends AXcomponent {
 
     AXDidMount() {
         let containerId = this.props.containerId || SVG_CONTAINER_ID;
-
+        this.movedNodeList = store.get('movedNodeList')||[];
         this.svg = this.createSVG(containerId);
         this.sectorMap = this.createSectors(this.refs[containerId]);
         debug(JSON.stringify(this.sectorMap));
@@ -489,6 +489,7 @@ export default class networkDiagram extends AXcomponent {
             link.path = undefined;
         });
         this.sectorMap = this.createSectors(this.refs[containerId]);
+        store.set('movedNodeList', this.movedNodeList);
     }
 
     render() {
