@@ -20,7 +20,7 @@ const CREATE_MAP_FROM_LIST = createMapFromList;// (dataList) => dataMap
 
 //===Dummy data===
 const generateList = function (storeKey) {
-    const listLength = 3;
+    const listLength = 200;
     var list = store.get(storeKey) || [];
 
     if(debugMode && list.length<1) {
