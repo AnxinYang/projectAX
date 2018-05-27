@@ -4,13 +4,13 @@
 import AXCore from './core';
 export default class AXDOM {
     constructor(_tag,_id,_root) {
-        let id = this.readValue(_id)|| 'self';
-        let tag = this.readValue(_tag) || 'div';
-        this.dom = document.createElement(tag);
-        this.dom.setAttribute('id',id);
+        this.id = this.readValue(_id)|| 'self';
+        this.tag = this.readValue(_tag) || 'div';
+        this.dom = document.createElement(this.tag);
+        this.dom.setAttribute('id',this.id);
         this.childrenGroup = {};
         this.attribute = {};
-        this.style = {};
+        this._style = {};
 
         if(_root){
             _root.appendChild(this.dom);
@@ -38,6 +38,16 @@ export default class AXDOM {
         this.dom.appendChild(element.dom);
         return element;
     }
+    appendElement(_AXDOM){
+        let axdom = this.readValue(_AXDOM);
+        let tag = axdom.tag;
+        let elementList = this.childrenGroup[tag] || [];
+        let element = axdom;
+        elementList.push(element);
+        this.childrenGroup[tag] = elementList;
+        this.dom.appendChild(element.dom);
+        return element;
+    }
     attr(key,_value){
         let value = this.readValue(_value);
         this.attribute[key] = value;
@@ -56,7 +66,7 @@ export default class AXDOM {
     style(_key,_value){
         let key = this.readValue(_key);
         let value = this.readValue(_value);
-        this.style[key] = value;
+        this._style[key] = value;
         this.dom.style[key] = value;
         return this;
     }

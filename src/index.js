@@ -9,9 +9,32 @@ var data={
 
 };
 var root = new AXDOM('div','ax_root',document.getElementById('app'));
-var input = root.append('input').attr('id','inpout');
-var p = root.append('p').bind(data);
-input.on('keyup',function(d,e){
-    var value = e.target.value;
-    p.content(value);
+root.style('font-size','12px');
+var header = root.append('div','header')
+    .style('display','flex')
+    .style('position','absolute')
+    .style('background','#70a1ff')
+    .style('width','100vw')
+    .style('height','3em');
+var headerItems = ['Home','Playground','About'];
+headerItems.forEach(function (item) {
+    header.append('div','header_'+item)
+        .content(item)
+        .style('color','white')
+        .style('padding','1em 0.5em')
+        .style('cursor','pointer')
+        .style('transition','0.3s')
+        .on('mouseover',function () {
+            this.style('background','#3742fa');
+        })
+        .on('mouseleave',function () {
+            this.style('background','');
+        });;
 });
+root.append('p','version')
+    .style('position','fixed')
+    .style('bottom','0px')
+    .style('right','0')
+    .style('padding-right','1em')
+    .style('color','lightgray')
+    .content(new Date());
