@@ -25,11 +25,11 @@ headerItems.forEach(function (item) {
         .style('cursor','pointer')
         .style('transition','0.3s')
         .on('mouseover',function () {
-            this.style('background','#3742fa');
+            this.style('background','#1e90ff');
         })
         .on('mouseleave',function () {
             this.style('background','');
-        });;
+        });
 });
 root.append('p','version')
     .style('position','fixed')
@@ -38,3 +38,52 @@ root.append('p','version')
     .style('padding-right','1em')
     .style('color','lightgray')
     .content(new Date());
+
+var forcePanel = root.append('div','forcePanel_test')
+forcePanel.style('position','fixed')
+    .style('display','flex')
+    .style('top','0')
+    .style('bottom','0')
+    .style('left','0')
+    .style('right','0')
+    .style('height','200px')
+    .style('width','200px')
+    .style('padding','50px')
+    .style('margin','auto')
+    .style('text-align','center')
+    .style('color','lightgray')
+    .style('transition', '0.3s')
+    .on('mousemove',function (d,e) {
+        let elems = this.select('div');
+        elems.forEach(function (elem) {
+            let postion = elem.dom.getBoundingClientRect();
+            let mX = e.clientX;
+            let mY = e.clientY;
+            let dX = Math.abs(mX - (postion.right+postion.left)/2);
+            let dY = Math.abs(mY - (postion.bottom+postion.top)/2);
+            let distance = Math.sqrt((dX*dX + dY*dY));
+            let maxScale = 1.5;
+            elem.style('transform','scale('+(Math.max(1,Math.min(maxScale,(-distance/125)+2)))+')')
+        })
+    })
+    .on('mouseleave',function (d,e) {
+        let elems = this.select('div');
+        elems.forEach(function (elem) {
+            elem.style('transform','scale(1)')
+        })
+    });
+var forcePanel_content  = forcePanel.append('div','forcePanel_content');
+forcePanel_content.style('height','25%')
+    .style('width','25%')
+    .style('transition', '0.3s')
+    .style('background','lightgray');
+var forcePanel_content1  = forcePanel.append('div','forcePanel_content1');
+forcePanel_content1.style('height','25%')
+    .style('width','25%')
+    .style('transition', '0.3s')
+    .style('background','lightgray');
+var forcePanel_content2  = forcePanel.append('div','forcePanel_content2');
+forcePanel_content2.style('height','25%')
+    .style('width','25%')
+    .style('transition', '0.3s')
+    .style('background','lightgray');

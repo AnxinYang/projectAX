@@ -9,6 +9,7 @@ export default class AXDOM {
         this.dom = document.createElement(this.tag);
         this.dom.setAttribute('id',this.id);
         this.childrenGroup = {};
+        this.childrenList = [];
         this.attribute = {};
         this._style = {};
 
@@ -34,6 +35,7 @@ export default class AXDOM {
         let elementList = this.childrenGroup[tag] || [];
         let element = new AXDOM(tag,id);
         elementList.push(element);
+        this.childrenList.push(element);
         this.childrenGroup[tag] = elementList;
         this.dom.appendChild(element.dom);
         return element;
@@ -84,7 +86,42 @@ export default class AXDOM {
         this.classes = classes;
         return this;
     }
-    remove(_tag){
+    select(_selector){
+        let selector = _selector.charAt(0);
+        let name = _selector.substring(1);
+        switch (selector){
+            case '#':
+                return this.selectById(name);
+            case '.':
+                return this.selectByClassName(name);
+            default:
+                return this.childrenGroup[_selector];
+        }
+    }
+    selectById(id){
+        let childrenList = this.childrenList;
+        let target;
+        for(var i = 0; i<childrenList.length;i++){
+            let child = childrenList[i];
+            if(child.id === id){
+                target = child;
+                break;
+            }
+        }
+        return target;
+    }
+    selectByClassName(className){
+        let childrenList = this.childrenList;
+        let targetList = [];
+        for(var i = 0; i<childrenList.length;i++){
+            let child = childrenList[i];
+            if(child.classes.indexOf(className)>-1){
+                targetList.push(child);
+            }
+        }
+        return targetList;
+    }
+    removeByTag(_tag){
         let tag =this.readValue(_tag);
         if(tag) {
             let elementList = this.childrenGroup[tag] || [];
