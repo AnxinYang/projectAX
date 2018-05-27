@@ -8,10 +8,9 @@ export default class AXDOM {
         this.tag = this.readValue(_tag) || 'div';
         this.dom = document.createElement(this.tag);
         this.dom.setAttribute('id',this.id);
-        this.childrenGroup = {};
         this.childrenList = [];
         this.attribute = {};
-        this._style = {};
+        this.domStyle = {};
 
         if(_root){
             _root.appendChild(this.dom);
@@ -32,21 +31,13 @@ export default class AXDOM {
     append(_tag,_id){
         let tag = this.readValue(_tag);
         let id = this.readValue(_id);
-        let elementList = this.childrenGroup[tag] || [];
         let element = new AXDOM(tag,id);
-        elementList.push(element);
-        this.childrenList.push(element);
-        this.childrenGroup[tag] = elementList;
-        this.dom.appendChild(element.dom);
+        this.appendElement(element);
         return element;
     }
     appendElement(_AXDOM){
-        let axdom = this.readValue(_AXDOM);
-        let tag = axdom.tag;
-        let elementList = this.childrenGroup[tag] || [];
-        let element = axdom;
-        elementList.push(element);
-        this.childrenGroup[tag] = elementList;
+        let element = this.readValue(_AXDOM);
+        this.childrenList.push(element);
         this.dom.appendChild(element.dom);
         return element;
     }
@@ -68,7 +59,7 @@ export default class AXDOM {
     style(_key,_value){
         let key = this.readValue(_key);
         let value = this.readValue(_value);
-        this._style[key] = value;
+        this.domStyle[key] = value;
         this.dom.style[key] = value;
         return this;
     }
@@ -95,7 +86,7 @@ export default class AXDOM {
             case '.':
                 return this.selectByClassName(name);
             default:
-                return this.childrenGroup[_selector];
+                return this.selectByTag(_selector);
         }
     }
     selectById(id){
@@ -121,17 +112,78 @@ export default class AXDOM {
         }
         return targetList;
     }
-    removeByTag(_tag){
-        let tag =this.readValue(_tag);
-        if(tag) {
-            let elementList = this.childrenGroup[tag] || [];
-            elementList.forEach((elem)=> {
-                elem.remove();
-            })
-        }else{
-            this.dom.remove();
+    selectByTag(_tag){
+        let childrenList = this.childrenList;
+        let targetList = [];
+        for(var i = 0; i<childrenList.length;i++){
+            let child = childrenList[i];
+            if(child.tag === _tag){
+                targetList.push(child);
+            }
         }
-        return this;
+        return targetList;
+    }
+    remove(_selector){
+        if(_selector==undefined){
+            this.removeSelf();
+            return;
+        }
+        let selector = _selector.charAt(0);
+        let name = _selector.substring(1);
+        let target;
+        switch (selector){
+            case '#':
+                this.removeById(name);
+                break;
+            case '.':
+                this.removeByClassName(name);
+                break;
+            default:
+                this.removeByTag(_selector);
+        }
+    }
+    removeById(id){
+        let childrenList = this.childrenList;
+        for(var i = 0; i<childrenList.length;i++){
+            let child = childrenList[i];
+            if(child.id === id){
+                childrenList.splice(i,1);
+                child.remove();
+                i--;
+                break;
+            }
+        }
+    }
+    removeByClassName(className){
+        let childrenList = this.childrenList;
+        for(var i = 0; i<childrenList.length;i++){
+            let child = childrenList[i];
+            if(child.classes.indexOf(className)>-1){
+                childrenList.splice(i,1);
+                child.remove();
+                i--;
+            }
+        }
+    }
+    removeByTag(_tag){
+        let childrenList = this.childrenList;
+        for(var i = 0; i<childrenList.length;i++){
+            let child = childrenList[i];
+            if(child.tag === _tag){
+                childrenList.splice(i,1);
+                child.remove();
+                i--;
+            }
+        }
+    }
+    removeSelf(){
+        this.childrenList.forEach(function (child) {
+            child.remove();
+        });
+        this.dom.remove();
+        for(var key in this){
+            delete this[key]
+        }
     }
     readValue(_value){
         let value = _value;
