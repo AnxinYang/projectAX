@@ -33,10 +33,14 @@ headerItems.forEach(function (item) {
             this.style('background','');
         });
 });
-root.append('p','version')
+var version = root.append('p','version')
     .style('position','fixed')
     .style('bottom','0px')
     .style('right','0')
     .style('padding-right','1em')
     .style('color','lightgray')
-    .content(new Date());
+    .content(new Date())
+    .setUpdater('timer',function () {
+        this.content(new Date());
+    });
+setInterval(version.updater('timer'),1000);

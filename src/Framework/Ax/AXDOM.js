@@ -11,17 +11,23 @@ export default class AXDOM {
         this.childrenList = [];
         this.attribute = {};
         this.domStyle = {};
+        this.updaters = {};
 
         if(_root){
             _root.appendChild(this.dom);
         }
         let self = this;
-        this.update = ()=>{
-            self.updater.call(self,self.data,arguments);
-        }
+        this.updater = function (name) {
+            let updater =this.updaters[name];
+            return function () {
+                if(updater) {
+                    updater.call(self, self.data, arguments);
+                }
+            }
+        };
     }
-    setUpdater(updater){
-        this.updater = updater;
+    setUpdater(name,updater){
+        this.updaters[name] = updater;
         return this;
     }
     bind(data){
@@ -47,11 +53,11 @@ export default class AXDOM {
         this.dom.setAttribute(key,value);
         return this;
     }
-    on(key,_value){
+    on(eventName,_value){
         let value = _value;
         let self = this;
-        this.on[key] = value;
-        this.dom.addEventListener(key,function (e) {
+        this.on[eventName] = value;
+        this.dom.addEventListener(eventName,function (e) {
             value.call(self,self.data,e)
         });
         return this;
