@@ -3,6 +3,7 @@
  */
 import AXCore from './Framework/Ax/core';
 import AXDOM from './Framework/Ax/AXDOM';
+import mainContent from './home';
 
 new AXCore();
 var data={
@@ -41,9 +42,8 @@ headerItems.forEach(function (item) {
 });
 var headerMenuButton = headerItems[0];
 headerMenuButton.style('position','relative');
-var menuContainer = headerMenuButton.append('div','menuContainer');
-
-menuContainer.style('position','absolute')
+var menuContainer = headerMenuButton.append('div','menuContainer')
+    .style('position','absolute')
     .style('width','256px')
     .style('height', '0px')
     .style('background','#70a1ff')
@@ -63,10 +63,15 @@ menuContainer.style('position','absolute')
         this.style('height','0');
         this.hasOpen = false;
     });
+
 headerMenuButton.on('click',function(e){
     e.stopPropagation();
     menuContainer.updater('toggleMenu')();
 });
+
+var mainContainer =  root.append('div','mainContainer');
+mainContainer.appendElement(mainContent);
+
 
 var version = root.append('p','version')
     .style('position','fixed')
