@@ -8,6 +8,9 @@ new AXCore();
 var data={
 
 };
+window.addEventListener('click',function (e) {
+    menuContainer.updater('closeMenu')();
+});
 var root = new AXDOM('div','ax_root',document.getElementById('app'));
 root.style('font-size','12px');
 var header = root.append('div','header')
@@ -46,15 +49,23 @@ menuContainer.style('position','absolute')
     .style('background','#70a1ff')
     .style('top','100%')
     .style('left','0')
-    .style('transition', '0.3s');
-headerMenuButton.on('click',function (d,e) {
-   let hasOpen = this.hasOpen || false;
-   if(hasOpen){
-       menuContainer.style('height','0');
-   }else{
-       menuContainer.style('height','calc(100vh - 3em)');
-   }
-   this.hasOpen = !hasOpen;
+    .style('transition', '0.3s')
+    .setUpdater('toggleMenu',function (d) {
+        let hasOpen = this.hasOpen || false;
+        if(hasOpen){
+            this.style('height','0');
+        }else{
+            this.style('height','calc(100vh - 3em)');
+        }
+        this.hasOpen = !hasOpen;
+    })
+    .setUpdater('closeMenu',function (d) {
+        this.style('height','0');
+        this.hasOpen = false;
+    });
+headerMenuButton.on('click',function(e){
+    e.stopPropagation();
+    menuContainer.updater('toggleMenu')();
 });
 
 var version = root.append('p','version')

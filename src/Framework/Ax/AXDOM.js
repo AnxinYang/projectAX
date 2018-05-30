@@ -58,7 +58,7 @@ export default class AXDOM {
         let self = this;
         this.on[eventName] = value;
         this.dom.addEventListener(eventName,function (e) {
-            value.call(self,self.data,e)
+            value.call(self,e,self.data,)
         });
         return this;
     }
