@@ -1,7 +1,7 @@
-const MAX_CYCLE = 65535;
+const MAX_CYCLE = 100;
 export default class AX_Routine{
     constructor(_tickSpeed,_options){
-        let tickSpeed = _tickSpeed || 1;
+        this.tickSpeed = _tickSpeed || 1;
         let options = _options || {};
         this.init(options);
         this.MAX_CYCLE = MAX_CYCLE;
@@ -14,17 +14,16 @@ export default class AX_Routine{
     };
     start(){
         let self = this;
-        setTimeout(self.routine.bind(this));
+        this.cycleStartTime = Date.now();
+        setTimeout(self.routine.bind(this),this.tickSpeed);
     }
-    add(name,group,freq,action){
-        let newRoutine = {
-            index:this.routineList.length,
-            name:name,
-            group:group||'common',
-            action:action,
-            freq:freq || 1
-        };
-       this.routineList.push(newRoutine);
+    append(name,group) {
+        let newRoutine = new Routine(name, group);
+        let self = this;
+        newRoutine.insert= function () {
+            self.routineList.push(newRoutine);
+        }
+        return newRoutine;
     }
     getCurrentCycle(){
         return this.cycle;
@@ -35,7 +34,7 @@ export default class AX_Routine{
             let routine = routineList[i];
             let startTime = Date.now();
             try {
-                if(this.cycle%routine.freq ===0) {
+                if(routine.checkCounter()) {
                     routine.action();
                 }
             }catch (e){
@@ -52,7 +51,36 @@ export default class AX_Routine{
         this.cycle++;
         if(this.cycle === MAX_CYCLE){
             this.cycle = 0;
+            this.lastCycleTime = Date.now() - this.cycleStartTime;
+            this.cyclePerSec = Math.floor(1000 / this.lastCycleTime);
         }
         this.start();
     }
+}
+class Routine{
+    constructor(name,group){
+        this.name = name;
+        this.group = group || 'common';
+        this.freq = 1;
+        this.action = function () {};
+        this.repeat = 0;
+    }
+    attr(key,value){
+        this[key] = value;
+        if(key==='freq'){
+            this['counter'] = value;
+        }
+        return this;
+    }
+    resetCounter(){
+        this.counter = this.freq;
+    }
+    checkCounter(){
+        let shouldRun = --this.counter===0;
+        if(this.counter===0){
+            this.resetCounter();
+        }
+       return shouldRun;
+    }
+
 }
