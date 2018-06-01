@@ -83,6 +83,13 @@ var version = root.append('p','version')
     .style('color','lightgray')
     .content(new Date())
     .setUpdater('timer',function () {
-        this.content(new Date());
+        this.content('Cycle:'+ axr.getCurrentCycle()+' |Longest: '+axr.longestRoutineTime+'ms | Last:'+axr.lastRoutineTime+'ms | '+new Date());
     });
-setInterval(version.updater('timer'),1000);
+//setInterval(version.updater('timer'),1000);
+axr.add('timer',undefined,undefined,version.updater('timer'));
+axr.add('timer',undefined,100,function () {
+    var c = 2;
+    for(var i=0;i<1000000;i++){
+        c=c+c;
+    }
+});
