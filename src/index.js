@@ -3,9 +3,11 @@
  */
 import AXCore from './Framework/Ax/core';
 import AXDOM from './Framework/Ax/AXDOM';
+import AX_Routine from './Framework/Ax/AX_Routine';
 import mainContent from './home';
 
 new AXCore();
+var axr=new AX_Routine();
 var data={
 
 };
