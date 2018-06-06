@@ -1,5 +1,5 @@
 const MAX_CYCLE = 100;
-export default class AX_Routine{
+class AX_Routine{
     constructor(_tickSpeed,_options){
         this.tickSpeed = _tickSpeed || 1;
         let options = _options || {};
@@ -7,6 +7,7 @@ export default class AX_Routine{
         this.MAX_CYCLE = MAX_CYCLE;
     }
     init(options){
+        window.AXR = this;
         this.cycle = 0;
         this.routineList = [];
         this.longestRoutineTime =0;
@@ -84,3 +85,6 @@ class Routine{
     }
 
 }
+const AXR = new AX_Routine();
+window.AXR = AXR;
+export default AXR;

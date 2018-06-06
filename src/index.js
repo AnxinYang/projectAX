@@ -3,14 +3,10 @@
  */
 import AXCore from './Framework/Ax/core';
 import AXDOM from './Framework/Ax/AXDOM';
-import AX_Routine from './Framework/Ax/AX_Routine';
-import mainContent from './home';
+import AXR from './Framework/Ax/AX_Routine';
+import homeContent from './home';
 
 new AXCore();
-var axr=new AX_Routine();
-var data={
-
-};
 window.addEventListener('click',function (e) {
     menuContainer.updater('closeMenu')();
 });
@@ -20,12 +16,12 @@ var header = root.append('div','header')
     .attr('onselectstart','return false;')
     .style('display','flex')
     .style('position','absolute')
-    .style('background','#70a1ff')
+    .style('background','#5352ed')
     .style('width','100vw')
     .style('height','3em')
     .style('z-index','10');
 
-var headerItems = ['▤','Home','Playground','About'];
+var headerItems = ['Menu','Playground','About'];
 var index = 0;
 headerItems.forEach(function (item) {
     headerItems[index++] = header.append('div', 'header_' + item)
@@ -36,7 +32,7 @@ headerItems.forEach(function (item) {
         .style('cursor', 'pointer')
         .style('transition', '0.3s')
         .on('mouseover', function () {
-            this.style('background', '#1e90ff');
+            this.style('background', 'rgb(47, 54, 64)');
         })
         .on('mouseleave', function () {
             this.style('background', '');
@@ -48,9 +44,10 @@ var menuContainer = headerMenuButton.append('div','menuContainer')
     .style('position','absolute')
     .style('width','256px')
     .style('height', '0px')
-    .style('background','#70a1ff')
+    .style('background','#5352ed')
     .style('top','100%')
     .style('left','0')
+    .style('box-shadow', '0px 8px 10px black')
     .style('transition', '0.3s')
     .setUpdater('toggleMenu',function (d) {
         let hasOpen = this.hasOpen || false;
@@ -72,7 +69,7 @@ headerMenuButton.on('click',function(e){
 });
 
 var mainContainer =  root.append('div','mainContainer');
-mainContainer.appendElement(mainContent);
+mainContainer.appendElement(homeContent);
 
 
 var version = root.append('p','version')
@@ -83,9 +80,9 @@ var version = root.append('p','version')
     .style('color','lightgray')
     .content(new Date())
     .setUpdater('timer',function () {
-        this.content('LasrCycleTime: '+axr.lastCycleTime+'ms | CPS:'+ axr.cyclePerSec +' |Longest: '+axr.longestRoutineTime+'ms | Last:'+axr.lastRoutineTime+'ms | '+new Date());
+        this.content('LasrCycleTime: '+AXR.lastCycleTime+'ms | CPS:'+ AXR.cyclePerSec +' |Longest: '+AXR.longestRoutineTime+'ms | Last:'+AXR.lastRoutineTime+'ms | '+new Date());
     });
-var timer = axr.append('timer')
+var timer = AXR.append('timer')
     .attr('freq',1)
     .attr('action',version.updater('timer'))
     .insert();
