@@ -58,7 +58,13 @@ for(var i=0;i<circleNum;i++){
         .style('transition','0.1s linear')
         .style('box-shadow','0 0 10px #eccc68')
         .style('opacity', '0')
-        .style('transform','translate('+x+'px,'+y+'px)');
+        .style('transform','translate('+x+'px,'+y+'px)')
+        .on('mouseover',function () {
+            this.style('background','rgba(255, 165, 2,1.0)')
+        })
+        .on('mouseleave',function () {
+            this.style('background','#eccc68')
+        });
     circle.x = x;
     circle.y = y;
     circle.dx = Math.random()-0.5;

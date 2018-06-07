@@ -17,10 +17,25 @@ var header = root.append('div','header')
     .attr('onselectstart','return false;')
     .style('display','flex')
     .style('position','absolute')
-    .style('background','#5352ed')
-    .style('width','100vw')
+    //.style('background','rgba(112, 161, 255,1.0)')
+    .style('opacity', '0.5')
+    //.style('box-shadow', '0px 0px 5px rgba(112, 161, 255,0)')
+    //.style('border','1px solid rgba(112, 161, 255, 0)')
+    //.style('border-radius','8px')
+    .style('top','1em')
     .style('height','3em')
-    .style('z-index','10');
+    .style('z-index','10')
+    .style('transition', '0.3s')
+    .on('mouseover', function () {
+        this.style('opacity', '1')
+            //.style('box-shadow', '0px 0px 5px rgba(112, 161, 255,1.0)')
+            //.style('border','1px solid rgba(112, 161, 255, 0.5)');
+    })
+    .on('mouseleave', function () {
+        this.style('opacity', '0.5')
+            //.style('box-shadow', '0px 0px 5px rgba(112, 161, 255,0)')
+            //.style('border','1px solid rgba(112, 161, 255, 0)');
+    });
 
 var headerItems = ['Menu','Playground','About'];
 var index = 0;
@@ -31,12 +46,15 @@ headerItems.forEach(function (item) {
         .style('color', 'white')
         .style('padding', '1em 0.5em')
         .style('cursor', 'pointer')
+        .style('text-shadow','0 0 10px #eccc68')
         .style('transition', '0.3s')
         .on('mouseover', function () {
-            this.style('background', 'rgb(47, 54, 64)');
+            this.style('text-shadow','0 0 10px #eccc68')
+                .style('color', '#eccc68');
         })
         .on('mouseleave', function () {
-            this.style('background', '');
+            this.style('text-shadow','0 0 20px #eccc68')
+                .style('color', 'white');
         });
 });
 var headerMenuButton = headerItems[0];
@@ -45,22 +63,29 @@ var menuContainer = headerMenuButton.append('div','menuContainer')
     .style('position','absolute')
     .style('width','256px')
     .style('height', '0px')
-    .style('background','#5352ed')
-    .style('top','100%')
+    .style('background','')
+    .style('top','125%')
     .style('left','0')
-    .style('box-shadow', '0px 8px 10px black')
+    .style('box-shadow', '0px 0px 5px rgba(112, 161, 255,0)')
+    .style('border','1px solid rgba(112, 161, 255, 0)')
     .style('transition', '0.3s')
     .setUpdater('toggleMenu',function (d) {
         let hasOpen = this.hasOpen || false;
         if(hasOpen){
-            this.style('height','0');
+            this.style('height','0')
+                .style('box-shadow', '0px 0px 5px rgba(112, 161, 255,0)')
+                .style('border','1px solid rgba(112, 161, 255, 0)');
         }else{
-            this.style('height','calc(100vh - 3em)');
+            this.style('height','33vh')
+                .style('box-shadow', '0px 0px 5px rgba(112, 161, 255,1.0)')
+                .style('border','1px solid rgba(112, 161, 255, 0.5)');
         }
         this.hasOpen = !hasOpen;
     })
     .setUpdater('closeMenu',function (d) {
-        this.style('height','0');
+        this.style('height','0')
+            .style('box-shadow', '0px 0px 5px rgba(112, 161, 255,0)')
+            .style('border','1px solid rgba(112, 161, 255, 0)');
         this.hasOpen = false;
     });
 
