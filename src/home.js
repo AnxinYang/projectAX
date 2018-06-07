@@ -9,7 +9,7 @@ mainContent.style('width','100%')
     .style('overflow','hidden');
 
 var headLine = mainContent.append('h1','headLine')
-    .content('Front-End Engineer')
+    .content('FRONT END ENGINEER')
     .style('position','absolute')
     .style('color','white')
     .style('width','100%')
@@ -20,17 +20,17 @@ var headLine = mainContent.append('h1','headLine')
     .style('bottom','33%')
     .style('margin','auto')
     .style('font-size','64px')
-    .style('transition', '0.3s')
+    .style('transition', '5s')
     .style('text-shadow','0 0 10px #70a1ff')
     .style('z-index',1)
     .on('mouseover',function () {
-        this.style('text-shadow','0 0 20px #70a1ff')
+        this.style('text-shadow','0 0 30px #70a1ff')
     })
     .on('mouseleave',function () {
         this.style('text-shadow','0 0 10px #70a1ff')
     });
 var homeHeadLineAnimation = AXR.append('home_headLine_animation')
-    .attr('freq',20)
+    .attr('freq',100)
     .attr('action',function () {
         let odd = Math.random()*100;
         if(odd>50){
