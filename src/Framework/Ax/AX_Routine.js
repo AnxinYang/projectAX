@@ -23,7 +23,7 @@ class AX_Routine{
         let self = this;
         newRoutine.insert= function () {
             if(newRoutine.freq!==1)
-            newRoutine.counter = self.routineList.length+1;
+            newRoutine.counter += self.routineList.length+1;
             self.routineList.push(newRoutine);
             return newRoutine;
         }
