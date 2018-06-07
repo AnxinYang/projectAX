@@ -81,7 +81,7 @@ var version = root.append('p','version')
     .style('color','lightgray')
     .content(new Date())
     .setUpdater('timer',function () {
-        this.content('LasrCycleTime: '+AXR.lastCycleTime+'ms | CPS:'+ AXR.cyclePerSec +' |Longest: '+AXR.longestRoutineTime+'ms | Last:'+AXR.lastRoutineTime+'ms | '+new Date());
+        this.content('AX_Routine: LasrCycleTime: '+AXR.lastCycleTime+'ms | CPS:'+ AXR.cyclePerSec +' |Longest: '+AXR.longestRoutineTime+'ms | Last:'+AXR.lastRoutineTime+'ms');
     });
 var timer = AXR.append('timer')
     .attr('freq',1)

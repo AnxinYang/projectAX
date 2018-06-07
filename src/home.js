@@ -30,7 +30,7 @@ var headLine = mainContent.append('h1','headLine')
         this.style('text-shadow','0 0 10px #70a1ff')
     });
 var homeHeadLineAnimation = AXR.append('home_headLine_animation')
-    .attr('freq',10)
+    .attr('freq',20)
     .attr('action',function () {
         let odd = Math.random()*100;
         if(odd>50){
