@@ -22,6 +22,8 @@ class AX_Routine{
         let newRoutine = new Routine(name, group);
         let self = this;
         newRoutine.insert= function () {
+            if(newRoutine.freq!==1)
+            newRoutine.counter = self.routineList.length+1;
             self.routineList.push(newRoutine);
             return newRoutine;
         }
@@ -32,22 +34,26 @@ class AX_Routine{
     }
     routine(){
         let routineList = this.routineList;
+        let self = this;
         for(var i=0;i<routineList.length;i++){
             let routine = routineList[i];
             let startTime = Date.now();
             try {
                 if(routine.checkCounter()) {
-                    routine.action();
+                    setTimeout(function(){
+                        routine.action();
+                        self.lastRoutineTime = Date.now() - startTime;
+                        if(self.longestRoutineTime<self.lastRoutineTime){
+                            self.longestRoutineTime=self.lastRoutineTime;
+                        }
+                        if(self.lastRoutineTime>200){
+                            console.warn('Routine:' + routine.name + ' took too long to run. ['+self.lastRoutineTime+'ms]')
+                        }
+                        routine.isRunning = false;
+                    },1);
                 }
             }catch (e){
                 //DECIDE IF REMOVE ROUTINE LATER;
-            }
-            this.lastRoutineTime = Date.now() - startTime;
-            if(this.longestRoutineTime<this.lastRoutineTime){
-                this.longestRoutineTime=this.lastRoutineTime;
-            }
-            if(this.lastRoutineTime>200){
-                console.warn('Routine:' + routine.name + ' took too long to run. ['+this.lastRoutineTime+'ms]')
             }
         }
         this.cycle++;
@@ -78,8 +84,13 @@ class Routine{
         this.counter = this.freq;
     }
     checkCounter(){
+        if(this.isRunning===true){
+            return false;
+        }
+
         let shouldRun = --this.counter===0;
         if(this.counter===0){
+            this.isRunning = true;
             this.resetCounter();
         }
        return shouldRun;

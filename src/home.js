@@ -22,6 +22,7 @@ var headLine = mainContent.append('h1','headLine')
     .style('font-size','64px')
     .style('transition', '0.3s')
     .style('text-shadow','0 0 10px #70a1ff')
+    .style('z-index',1)
     .on('mouseover',function () {
         this.style('text-shadow','0 0 20px #70a1ff')
     })
@@ -33,7 +34,7 @@ var homeHeadLineAnimation = AXR.append('home_headLine_animation')
     .attr('action',function () {
         let odd = Math.random()*100;
         if(odd>50){
-            headLine.style('text-shadow','0 0 20px #70a1ff')
+            headLine.style('text-shadow','0 0 20px #eccc68')
         }else{
             headLine.style('text-shadow','0 0 10px #70a1ff')
         }
@@ -66,7 +67,7 @@ for(var i=0;i<circleNum;i++){
     circle.scale =  Math.random();
     circle.counter = 10;
     let circleAn = AXR.append('home_circle_animation')
-        .attr('freq',5)
+        .attr('freq',20)
         .attr('action',function () {
             let scale = circle.scale;
             circle.x+=circle.dx;
