@@ -22,11 +22,16 @@ class AX_Routine{
         let newRoutine = new Routine(name, group);
         let self = this;
         newRoutine.insert= function () {
-            if(newRoutine.freq!==1)
-            newRoutine.counter += self.routineList.length+1;
+            if(newRoutine.freq!==1) {
+                newRoutine.counter += self.routineList.length + 1;
+            }
+            newRoutine.idx = self.routineList.length;
             self.routineList.push(newRoutine);
             return newRoutine;
-        }
+        };
+        newRoutine.remove= function () {
+            self.routineList.splice(newRoutine.idx,1);
+        };
         return newRoutine;
     }
     getCurrentCycle(){
@@ -90,6 +95,12 @@ class Routine{
 
         let shouldRun = --this.counter===0;
         if(this.counter===0){
+            if(this.excutionTimes!==undefined){
+                this.excutionTimes--;
+                if(this.excutionTimes===0){
+                    this.remove();
+                }
+            }
             this.isRunning = true;
             this.resetCounter();
         }

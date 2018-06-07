@@ -31,6 +31,7 @@ var headLine = mainContent.append('h1','headLine')
     });
 var homeHeadLineAnimation = AXR.append('home_headLine_animation')
     .attr('freq',100)
+    .attr('excutionTimes',5)
     .attr('action',function () {
         let odd = Math.random()*100;
         if(odd>50){
