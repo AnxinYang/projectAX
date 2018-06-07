@@ -11,7 +11,8 @@ window.addEventListener('click',function (e) {
     menuContainer.updater('closeMenu')();
 });
 var root = new AXDOM('div','ax_root',document.getElementById('app'));
-root.style('font-size','12px');
+root.style('font-size','12px')
+    .style('cursor', 'url(), auto');
 var header = root.append('div','header')
     .attr('onselectstart','return false;')
     .style('display','flex')

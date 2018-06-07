@@ -23,6 +23,7 @@ class AX_Routine{
         let self = this;
         newRoutine.insert= function () {
             self.routineList.push(newRoutine);
+            return newRoutine;
         }
         return newRoutine;
     }
