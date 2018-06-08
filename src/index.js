@@ -66,19 +66,20 @@ var menuContainer = headerMenuButton.append('div','menuContainer')
     .style('background','')
     .style('top','125%')
     .style('left','0')
-    .style('box-shadow', '0px 0px 5px rgba(112, 161, 255,0)')
-    .style('border','1px solid rgba(112, 161, 255, 0)')
+    .style('overflow','hidden')
+    //.style('box-shadow', '0px 0px 5px rgba(112, 161, 255,0)')
+    //.style('border','1px solid rgba(112, 161, 255, 0)')
     .style('transition', '0.3s')
     .setUpdater('toggleMenu',function (d) {
         let hasOpen = this.hasOpen || false;
         if(hasOpen){
             this.style('height','0')
-                .style('box-shadow', '0px 0px 5px rgba(112, 161, 255,0)')
-                .style('border','1px solid rgba(112, 161, 255, 0)');
+                //.style('box-shadow', '0px 0px 5px rgba(112, 161, 255,0)')
+                //.style('border','1px solid rgba(112, 161, 255, 0)');
         }else{
             this.style('height','33vh')
-                .style('box-shadow', '0px 0px 5px rgba(112, 161, 255,1.0)')
-                .style('border','1px solid rgba(112, 161, 255, 0.5)');
+                //.style('box-shadow', '0px 0px 5px rgba(112, 161, 255,1.0)')
+                //.style('border','1px solid rgba(112, 161, 255, 0.5)');
         }
         this.hasOpen = !hasOpen;
     })
@@ -112,3 +113,25 @@ var timer = AXR.append('timer')
     .attr('freq',1)
     .attr('action',version.updater('timer'))
     .insert();
+var menuContents = menuContainer.append('ul')
+    .style('padding-left','2em')
+    .style('margin','0');
+var menuItems = ['Coming soon','May Coming soon','probably Coming soon'];
+index = 0;
+menuItems.forEach(function (item) {
+    menuItems[index++] = menuContents.append('li', 'menu_' + item)
+        .content(item)
+        .style('color', 'white')
+        .style('padding', '1em 0.5em')
+        .style('cursor', 'pointer')
+        .style('text-shadow','0 0 10px #eccc68')
+        .style('transition', '0.3s')
+        .on('mouseover', function () {
+            this.style('text-shadow','0 0 10px #eccc68')
+                .style('color', '#eccc68');
+        })
+        .on('mouseleave', function () {
+            this.style('text-shadow','0 0 20px #eccc68')
+                .style('color', 'white');
+        });
+});
