@@ -16,7 +16,10 @@ export default class AXCore{
 
     getBrowser(){
         let isIE = false;
+        let isChrome = false;
+        let isOpera = false;
         if((!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0){
+            isOpera = true;
             return 'opera';
         }
         if(typeof InstallTrigger !== 'undefined'){
@@ -46,6 +49,7 @@ export default class AXCore{
             return 'edge';
         }
         if(!!window.chrome && !!window.chrome.webstore){
+            isChrome = true
             return 'chrome';
         }
         if((isChrome || isOpera) && !!window.CSS){

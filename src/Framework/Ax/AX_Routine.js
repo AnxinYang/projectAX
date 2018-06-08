@@ -95,9 +95,9 @@ class Routine{
 
         let shouldRun = --this.counter===0;
         if(this.counter===0){
-            if(this.excutionTimes!==undefined){
-                this.excutionTimes--;
-                if(this.excutionTimes===0){
+            if(this.executionTimes!==undefined){
+                this.executionTimes--;
+                if(this.executionTimes===0){
                     this.remove();
                 }
             }
