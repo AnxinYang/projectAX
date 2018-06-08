@@ -11,7 +11,7 @@ class AX_Routine{
         this.cycle = 0;
         this.routineList = [];
         this.longestRoutineTime =0;
-        //setTimeout(this.start.bind(this));
+        setTimeout(this.start.bind(this));
     };
     start(){
         let self = this;
