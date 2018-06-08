@@ -2,15 +2,33 @@ import AXDOM from './Framework/Ax/AXDOM';
 
 
 var mainContent = new AXDOM('div','homeContent');
-mainContent.style('width','100%')
+mainContent.style('width','100vw')
     .style('height','100vh')
     .style('background','#222f3e')
     .style('position','relative')
-    .style('overflow','hidden');
+    .style('transition', '5s')
+    .style('overflow','hidden')
+    .on('mousemove',function (e,d) {
+        let x = e.clientX;
+        let y = e.clientY;
+        let origin = {
+            x: window.innerWidth/2,
+            y: window.innerHeight/2
+        };
+        mainContent.dx = -(x - origin.x)/10;
+        mainContent.dy = -(y - origin.y)/10;
+
+    });
+var backgroundAn = AXR.append('backgroundAn')
+    .attr('freq',200)
+    .attr('executionTimes',1)
+    .attr('action',function () {
+        mainContent.style('background','black')
+    }).insert();
 
 var headLine = mainContent.append('h1','headLine')
     .content('FRONT END ENGINEER')
-    .style('position','absolute')
+    .style('position','fixed')
     .style('color','white')
     .style('width','100%')
     .style('height', '60px')
@@ -43,7 +61,7 @@ var homeHeadLineAnimation = AXR.append('home_headLine_animation')
 
 var subHeadLine = mainContent.append('h1','subHeadLine')
     .content('- who makes data alive -')
-    .style('position','absolute')
+    .style('position','fixed')
     .style('color','#eccc68')
     .style('width','100%')
     .style('height', '30px')
@@ -57,7 +75,7 @@ var subHeadLine = mainContent.append('h1','subHeadLine')
     .style('text-shadow','0 0 10px #eccc68')
     .style('z-index',1);
 var infoButtonHalo = mainContent.append('span','infoButtonHalo')
-    .style('position','absolute')
+    .style('position','fixed')
     .style('color','#eccc68')
     .style('width','32px')
     .style('height', '32px')
@@ -76,7 +94,7 @@ var infoButtonHalo = mainContent.append('span','infoButtonHalo')
     .style('z-index',1);
 var infoButton = mainContent.append('span','infoButton')
     .content('Wanna know more?')
-    .style('position','absolute')
+    .style('position','fixed')
     .style('color','#eccc68')
     .style('width','32px')
     .style('height', '32px')
@@ -96,7 +114,7 @@ var infoButton = mainContent.append('span','infoButton')
     .style('cursor','pointer')
     .style('z-index',1)
     .on('mouseover',function () {
-        this.style('background','rgba(47, 54, 64,0.5)')
+        this.style('background','rgba(34, 47, 62,0.5)')
             .style('width','100%')
             .style('box-shadow','')
             .style('border-radius','4px')
@@ -140,10 +158,7 @@ var infoButtonHaloAn = AXR.append('infoButtonHaloAn')
 
 var circleNum = 150;
 var circleList = [];
-var origin = {
-    x: window.innerWidth/2,
-    y: window.innerHeight/2
-};
+
 for(var i=0;i<circleNum;i++){
     let x = Math.random()*window.innerWidth+10;
     let y = Math.random()*window.innerHeight+10;
@@ -171,13 +186,13 @@ for(var i=0;i<circleNum;i++){
     circle.scale =  Math.random();
     circle.counter = 10;
     let circleAn = AXR.append('home_circle_animation')
-        .attr('freq',20)
+        .attr('freq',5)
         .attr('action',function () {
             let scale = circle.scale;
             circle.x+=circle.dx;
             circle.y+=circle.dy;
 
-            circle.style('transform','translate('+circle.x+'px,'+circle.y+'px) scale('+scale+')')
+            circle.style('transform','translate('+(circle.x + (mainContent.dx||0)*scale)+'px,'+(circle.y + (mainContent.dy||0)*scale)+'px) scale('+scale+')')
                 .style('opacity', scale)
                 .style('box-shadow','0 0 '+(Math.random()*10+10)+'px #eccc68');
             if(circle.x>window.innerWidth){
