@@ -114,7 +114,7 @@ var infoButton = mainContent.append('span','infoButton')
     .style('cursor','pointer')
     .style('z-index',1)
     .on('mouseover',function () {
-        this.style('background','rgba(34, 47, 62,0.5)')
+        this.style('background','rgba(0, 0, 0, 0.5)')
             .style('width','100%')
             .style('box-shadow','')
             .style('border-radius','4px')
