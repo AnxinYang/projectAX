@@ -4,7 +4,7 @@ import AXDOM from './Framework/Ax/AXDOM';
 var mainContent = new AXDOM('div','homeContent');
 mainContent.style('width','100%')
     .style('height','100vh')
-    .style('background','#2f3640')
+    .style('background','#222f3e')
     .style('position','relative')
     .style('overflow','hidden');
 
