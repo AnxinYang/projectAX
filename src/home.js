@@ -193,6 +193,7 @@ for(var i=0;i<circleNum;i++){
 
             circle.style('transform','translate('+(circle.x + (mainContent.dx||0)*scale)+'px,'+(circle.y + (mainContent.dy||0)*scale)+'px) scale('+scale+')')
                 .style('opacity', scale)
+                .style('z-index', scale>=0.8?2:0)
                 .style('box-shadow','0 0 '+(Math.random()*10+10)+'px #eccc68');
             if(circle.x>window.innerWidth){
                 circle.dx = -(Math.random()*0.5+0.1);
