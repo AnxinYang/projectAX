@@ -1,8 +1,8 @@
 /**
  * Created by Anxin Yang on 5/26/2018.
  */
-import AXCore from './core';
-export default class AXDOM {
+import AXCore from './Cubi_Core';
+export default class Cubi_DOM {
     constructor(_tag,_id,_root) {
         this.id = this.readValue(_id)|| 'self';
         this.tag = this.readValue(_tag) || 'div';
@@ -12,6 +12,7 @@ export default class AXDOM {
         this.attribute = {};
         this.domStyle = {};
         this.updaters = {};
+        this.parent = {};
 
         if(_root){
             _root.appendChild(this.dom);
@@ -37,12 +38,13 @@ export default class AXDOM {
     append(_tag,_id){
         let tag = this.readValue(_tag);
         let id = this.readValue(_id);
-        let element = new AXDOM(tag,id);
+        let element = new Cubi_DOM(tag,id);
         this.appendElement(element);
         return element;
     }
-    appendElement(_AXDOM){
-        let element = this.readValue(_AXDOM);
+    appendElement(Cubi_DOM){
+        let element = this.readValue(Cubi_DOM);
+        element.parent = this;
         this.childrenList.push(element);
         this.dom.appendChild(element.dom);
         return element;
@@ -187,6 +189,16 @@ export default class AXDOM {
             child.remove();
         });
         this.dom.remove();
+        if(this.parent){
+            let childrenList = this.parent.childrenList;
+            for(var i = 0; i<childrenList.length;i++){
+                let child = childrenList[i];
+                if(child === this){
+                    childrenList.splice(i,1);
+
+                }
+            }
+        }
         for(var key in this){
             delete this[key]
         }

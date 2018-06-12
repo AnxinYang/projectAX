@@ -1,5 +1,5 @@
 const EMPTY_FUNCTION = ()=>{};
-export default class AXCore{
+class Cubi_Core{
     constructor(_props){
         let props = props || {};
         let self = this;
@@ -101,7 +101,7 @@ export default class AXCore{
     };
     getValue(_key) {
         var key = _key || '';
-        return self.dataMap[key];
+        return this.dataMap[key];
     };
 
     connect(_key,_action) {
@@ -115,6 +115,7 @@ export default class AXCore{
         actionMap[_key] = actionList;
     };
     react(_key) {
+        var self = this;
         if(_key===undefined){
             return false;
         }
@@ -126,8 +127,8 @@ export default class AXCore{
                 var value = self.getValue(_key);
                 action(value);
             }catch (e){
-                var index = actionList.indexOf(action);
-                actionList.splice(index,1);
+                //var index = actionList.indexOf(action);
+                //actionList.splice(index,1);
             }
         })
     };
@@ -137,4 +138,6 @@ export default class AXCore{
         }
     };
 }
-
+const cc = new Cubi_Core();
+window.cc = cc;
+export default cc;
