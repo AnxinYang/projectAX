@@ -1,7 +1,7 @@
-import Cubi_DOM from './Framework/Cubi/Cubi_DOM';
+import CubY_DOM from './Framework/CubY/CubY_DOM';
 
 
-var mainContent = new Cubi_DOM('div','homeContent');
+var mainContent = new CubY_DOM('div','homeContent');
 mainContent.style('width','100vw')
     .style('height','100vh')
     .style('background','#222f3e')
