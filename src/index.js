@@ -110,7 +110,7 @@ try {
         .style('color', 'lightgray')
         .content(new Date())
         .setUpdater('timer', function () {
-            this.content('AX_Routine: LasrCycleTime: ' + cr.lastCycleTime + 'ms | CPS:' + cr.cyclePerSec + ' |Longest: ' + cr.longestRoutineTime + 'ms | Last:' + cr.lastRoutineTime + 'ms');
+            this.content('CubY_Routine: LasrCycleTime: ' + cr.lastCycleTime + 'ms | CPS:' + cr.cyclePerSec + ' |Longest: ' + cr.longestRoutineTime + 'ms | Last:' + cr.lastRoutineTime + 'ms');
         });
     var timer = cr.append('timer')
         .attr('freq', 1)
@@ -119,7 +119,7 @@ try {
     var menuContents = menuContainer.append('ul')
         .style('padding-left', '2em')
         .style('margin', '0');
-    var menuItems = ['Coming soon', 'May Coming soon', 'probably Coming soon'];
+    var menuItems = ['Coming soon', 'May Coming soon', 'Probably Coming soon'];
     index = 0;
     menuItems.forEach(function (item) {
         menuItems[index++] = menuContents.append('li', 'menu_' + item)
