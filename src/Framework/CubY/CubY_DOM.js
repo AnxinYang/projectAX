@@ -185,9 +185,9 @@ export default class CubY_DOM {
         }
     }
     removeSelf(){
-        this.childrenList.forEach(function (child) {
+        /*this.childrenList.forEach(function (child) {
             child.remove();
-        });
+        });*/
         this.dom.remove();
         if(this.parent){
             let childrenList = this.parent.childrenList;
@@ -199,9 +199,9 @@ export default class CubY_DOM {
                 }
             }
         }
-        for(var key in this){
+        /*for(var key in this){
             delete this[key]
-        }
+        }*/
     }
     readValue(_value){
         let value = _value;
