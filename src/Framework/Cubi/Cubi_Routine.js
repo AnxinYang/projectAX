@@ -1,5 +1,5 @@
 const MAX_CYCLE = 100;
-class AX_Routine{
+class Cubi_Routine{
     constructor(_tickSpeed,_options){
         this.tickSpeed = _tickSpeed || 1;
         let options = _options || {};
@@ -108,6 +108,6 @@ class Routine{
     }
 
 }
-const AXR = new AX_Routine();
-window.AXR = AXR;
-export default AXR;
+const cr = new Cubi_Routine();
+window.cr = cr;
+export default cr;

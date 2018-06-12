@@ -1,5 +1,5 @@
 const EMPTY_FUNCTION = ()=>{};
-class AXCore{
+class Cubi_Core{
     constructor(_props){
         let props = props || {};
         let self = this;
@@ -138,6 +138,6 @@ class AXCore{
         }
     };
 }
-const AXC = new AXCore();
-window.AXC = AXC;
-export default AXC;
+const cc = new Cubi_Core();
+window.cc = cc;
+export default cc;

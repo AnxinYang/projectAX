@@ -1,7 +1,7 @@
-import AXDOM from './Framework/Ax/AXDOM';
+import Cubi_DOM from './Framework/Cubi/Cubi_DOM';
 
 
-var mainContent = new AXDOM('div','homeContent');
+var mainContent = new Cubi_DOM('div','homeContent');
 mainContent.style('width','100vw')
     .style('height','100vh')
     .style('background','#222f3e')
@@ -19,7 +19,7 @@ mainContent.style('width','100vw')
         mainContent.dy = -(y - origin.y)/10;
 
     });
-var backgroundAn = AXR.append('backgroundAn')
+var backgroundAn = cr.append('backgroundAn')
     .attr('freq',200)
     .attr('executionTimes',1)
     .attr('action',function () {
@@ -47,7 +47,7 @@ var headLine = mainContent.append('h1','headLine')
     .on('mouseleave',function () {
         this.style('text-shadow','0 0 10px #70a1ff')
     });
-var homeHeadLineAnimation = AXR.append('home_headLine_animation')
+var homeHeadLineAnimation = cr.append('home_headLine_animation')
     .attr('freq',25)
     .attr('action',function () {
         let odd = Math.random()*100;
@@ -80,7 +80,7 @@ var infoButtonHalo = mainContent.append('span','infoButtonHalo')
     .style('width','32px')
     .style('height', '32px')
     .style('overflow','hidden')
-    .style('border-radius','50%')
+    .style('border-radius','4px')
     .style('text-align','center')
     .style('left','0')
     .style('right','0')
@@ -100,7 +100,7 @@ var infoButton = mainContent.append('span','infoButton')
     .style('height', '32px')
     .style('overflow','hidden')
     .style('border','1px solid transparent')
-    .style('border-radius','50%')
+    .style('border-radius','4px')
     .style('text-align','center')
     .style('left','0')
     .style('right','0')
@@ -113,21 +113,22 @@ var infoButton = mainContent.append('span','infoButton')
     .style('box-shadow','0 0 10x #eccc68')
     .style('cursor','pointer')
     .style('z-index',1)
+    .on('click',function () {
+        cc.storeValue('currentView','about');
+    })
     .on('mouseover',function () {
         this.style('background','rgba(0, 0, 0, 0.5)')
             .style('width','100%')
             .style('box-shadow','')
-            .style('border-radius','4px')
         infoButton.overed = true;
     })
     .on('mouseleave',function () {
         this.style('background', '#eccc68')
             .style('width','32px')
             .style('box-shadow','0 0 10px #eccc68')
-            .style('border-radius','50%')
         infoButton.overed = false;
     });
-var infoButtonHaloAn = AXR.append('infoButtonHaloAn')
+var infoButtonHaloAn = cr.append('infoButtonHaloAn')
     .attr('freq',60)
     .attr('action',function () {
         if(infoButton.overed === true){
@@ -170,7 +171,7 @@ for(var i=0;i<circleNum;i++){
         .style('position','absolute')
         .style('width','20px')
         .style('height','20px')
-        .style('border-radius','50%')
+        .style('border-radius','4px')
         .style('background','#eccc68')
         .style('transition','0.1s linear')
         .style('box-shadow','0 0 10px #eccc68')

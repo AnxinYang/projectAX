@@ -1,15 +1,15 @@
 /**
  * Created by Anxin Yang on 3/28/2018.
  */
-import AXC from './Framework/Ax/core';
-import AXDOM from './Framework/Ax/AXDOM';
-import AXR from './Framework/Ax/AX_Routine';
+import AXC from './Framework/Cubi/Cubi_Core';
+import Cubi_DOM from './Framework/Cubi/Cubi_DOM';
+import AXR from './Framework/Cubi/Cubi_Routine';
 import homeContent from './home';
 try {
     window.addEventListener('click', function (e) {
         menuContainer.updater('closeMenu')();
     });
-    window.root = new AXDOM('div', 'ax_root', document.getElementById('app'));
+    window.root = new Cubi_DOM('div', 'ax_root', document.getElementById('app'));
     root.style('font-size', '12px')
         .style('cursor', 'url(), auto');
     var header = root.append('div', 'header')
@@ -65,35 +65,6 @@ try {
         .style('background', '')
         .style('top', '125%')
         .style('left', '0')
-        .style('box-shadow', '0px 0px 5px rgba(112, 161, 255,0)')
-        .style('border', '1px solid rgba(112, 161, 255, 0)')
-        .style('transition', '0.3s')
-        .setUpdater('toggleMenu', function (d) {
-            let hasOpen = this.hasOpen || false;
-            if (hasOpen) {
-                this.style('height', '0')
-                    .style('box-shadow', '0px 0px 5px rgba(112, 161, 255,0)')
-                    .style('border', '1px solid rgba(112, 161, 255, 0)');
-            } else {
-                this.style('height', '33vh')
-                    .style('box-shadow', '0px 0px 5px rgba(112, 161, 255,1.0)')
-                    .style('border', '1px solid rgba(112, 161, 255, 0.5)');
-            }
-            this.hasOpen = !hasOpen;
-        })
-        .on('mouseleave', function () {
-            this.style('text-shadow', '0 0 20px #eccc68')
-                .style('color', 'white');
-        });
-    var headerMenuButton = headerItems[0];
-    headerMenuButton.style('position', 'relative');
-    var menuContainer = headerMenuButton.append('div', 'menuContainer')
-        .style('position', 'absolute')
-        .style('width', '256px')
-        .style('height', '0px')
-        .style('background', '')
-        .style('top', '125%')
-        .style('left', '0')
         .style('overflow', 'hidden')
         //.style('box-shadow', '0px 0px 5px rgba(112, 161, 255,0)')
         //.style('border','1px solid rgba(112, 161, 255, 0)')
@@ -125,9 +96,9 @@ try {
 
     var mainContainer = root.append('div', 'mainContainer');
     mainContainer.appendElement(homeContent);
-    AXC.storeValue('currentView','home');
-    AXC.connect('currentView',function () {
-        let currentView = AXC.getValue('currentView');
+    cc.storeValue('currentView','home');
+    cc.connect('currentView',function () {
+        let currentView = cc.getValue('currentView');
         mainContainer.remove()
     });
 
@@ -139,9 +110,9 @@ try {
         .style('color', 'lightgray')
         .content(new Date())
         .setUpdater('timer', function () {
-            this.content('AX_Routine: LasrCycleTime: ' + AXR.lastCycleTime + 'ms | CPS:' + AXR.cyclePerSec + ' |Longest: ' + AXR.longestRoutineTime + 'ms | Last:' + AXR.lastRoutineTime + 'ms');
+            this.content('AX_Routine: LasrCycleTime: ' + cr.lastCycleTime + 'ms | CPS:' + cr.cyclePerSec + ' |Longest: ' + cr.longestRoutineTime + 'ms | Last:' + cr.lastRoutineTime + 'ms');
         });
-    var timer = AXR.append('timer')
+    var timer = cr.append('timer')
         .attr('freq', 1)
         .attr('action', version.updater('timer'))
         .insert();
