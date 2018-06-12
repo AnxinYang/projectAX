@@ -1,5 +1,5 @@
 const EMPTY_FUNCTION = ()=>{};
-class Cubi_Core{
+class CubY_Core{
     constructor(_props){
         let props = props || {};
         let self = this;
@@ -138,6 +138,6 @@ class Cubi_Core{
         }
     };
 }
-const cc = new Cubi_Core();
+const cc = new CubY_Core();
 window.cc = cc;
 export default cc;

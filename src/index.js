@@ -1,15 +1,15 @@
 /**
  * Created by Anxin Yang on 3/28/2018.
  */
-import AXC from './Framework/Cubi/Cubi_Core';
-import Cubi_DOM from './Framework/Cubi/Cubi_DOM';
-import AXR from './Framework/Cubi/Cubi_Routine';
+import CC from './Framework/CubY/CubY_Core';
+import CubY_DOM from './Framework/CubY/CubY_DOM';
+import CR from './Framework/CubY/CubY_Routine';
 import homeContent from './home';
 try {
     window.addEventListener('click', function (e) {
         menuContainer.updater('closeMenu')();
     });
-    window.root = new Cubi_DOM('div', 'ax_root', document.getElementById('app'));
+    window.root = new CubY_DOM('div', 'ax_root', document.getElementById('app'));
     root.style('font-size', '12px')
         .style('cursor', 'url(), auto');
     var header = root.append('div', 'header')
@@ -110,7 +110,7 @@ try {
         .style('color', 'lightgray')
         .content(new Date())
         .setUpdater('timer', function () {
-            this.content('AX_Routine: LasrCycleTime: ' + cr.lastCycleTime + 'ms | CPS:' + cr.cyclePerSec + ' |Longest: ' + cr.longestRoutineTime + 'ms | Last:' + cr.lastRoutineTime + 'ms');
+            this.content('CubY_Routine: LasrCycleTime: ' + cr.lastCycleTime + 'ms | CPS:' + cr.cyclePerSec + ' |Longest: ' + cr.longestRoutineTime + 'ms | Last:' + cr.lastRoutineTime + 'ms');
         });
     var timer = cr.append('timer')
         .attr('freq', 1)
@@ -119,7 +119,7 @@ try {
     var menuContents = menuContainer.append('ul')
         .style('padding-left', '2em')
         .style('margin', '0');
-    var menuItems = ['Coming soon', 'May Coming soon', 'probably Coming soon'];
+    var menuItems = ['Coming soon', 'May Coming soon', 'Probably Coming soon'];
     index = 0;
     menuItems.forEach(function (item) {
         menuItems[index++] = menuContents.append('li', 'menu_' + item)

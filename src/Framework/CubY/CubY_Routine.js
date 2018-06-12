@@ -1,5 +1,5 @@
 const MAX_CYCLE = 100;
-class Cubi_Routine{
+class CubY_Routine{
     constructor(_tickSpeed,_options){
         this.tickSpeed = _tickSpeed || 1;
         let options = _options || {};
@@ -108,6 +108,6 @@ class Routine{
     }
 
 }
-const cr = new Cubi_Routine();
+const cr = new CubY_Routine();
 window.cr = cr;
 export default cr;
