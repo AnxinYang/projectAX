@@ -1,16 +1,15 @@
 /**
  * Created by Anxin Yang on 3/28/2018.
  */
-import AXCore from './Framework/Ax/core';
+import AXC from './Framework/Ax/core';
 import AXDOM from './Framework/Ax/AXDOM';
 import AXR from './Framework/Ax/AX_Routine';
 import homeContent from './home';
 try {
-    new AXCore();
     window.addEventListener('click', function (e) {
         menuContainer.updater('closeMenu')();
     });
-    var root = new AXDOM('div', 'ax_root', document.getElementById('app'));
+    window.root = new AXDOM('div', 'ax_root', document.getElementById('app'));
     root.style('font-size', '12px')
         .style('cursor', 'url(), auto');
     var header = root.append('div', 'header')
@@ -37,7 +36,7 @@ try {
             //.style('border','1px solid rgba(112, 161, 255, 0)');
         });
 
-    var headerItems = ['Menu', 'Playground', 'About'];
+    var headerItems = ['Menu', 'Playground', 'About Me'];
     var index = 0;
     headerItems.forEach(function (item) {
         headerItems[index++] = header.append('div', 'header_' + item)
@@ -126,6 +125,11 @@ try {
 
     var mainContainer = root.append('div', 'mainContainer');
     mainContainer.appendElement(homeContent);
+    AXC.storeValue('currentView','home');
+    AXC.connect('currentView',function () {
+        let currentView = AXC.getValue('currentView');
+        mainContainer.remove()
+    });
 
     var version = root.append('p', 'version')
         .style('position', 'fixed')
