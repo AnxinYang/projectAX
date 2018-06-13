@@ -14,6 +14,7 @@ background.style('width','100vw')
     .style('background','transparent')
     .style('top',0)
     .style('left',0)
+    .style('z-index',1)
     .on('mousemove',function (e,d) {
         let x = e.clientX;
         let y = e.clientY;
