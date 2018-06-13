@@ -13,7 +13,7 @@ var backgroundAn = cr.append('backgroundAn')
     .attr('freq',300)
     .attr('repeat',1)
     .attr('action',function () {
-        mainContent.style('background','transparent')
+        mainContent.style('background','black')
     }).insert();
 
 var headLine = mainContent.append('h1','headLine')

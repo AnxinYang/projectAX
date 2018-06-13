@@ -11,7 +11,7 @@ var background = new CubY_DOM('div','background');
 background.style('width','100vw')
     .style('height','100vh')
     .style('position','fixed')
-    .style('background','black')
+    .style('background','transparent')
     .style('top',0)
     .style('left',0)
     .on('mousemove',function (e,d) {
