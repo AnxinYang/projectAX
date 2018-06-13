@@ -8,6 +8,7 @@ mainContent.style('width','100vw')
     .style('position','relative')
     .style('transition', '5s')
     .style('overflow','hidden')
+    .appendClass('mainContent')
     .on('mousemove',function (e,d) {
         let x = e.clientX;
         let y = e.clientY;

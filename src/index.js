@@ -96,10 +96,16 @@ try {
 
     var mainContainer = root.append('div', 'mainContainer');
     mainContainer.appendElement(homeContent);
-    cc.storeValue('currentView','home');
+    cc.storeValue('currentView','Home');
     cc.connect('currentView',function () {
         let currentView = cc.getValue('currentView');
-        mainContainer.remove()
+        mainContainer.remove('.mainContent');
+        switch (currentView){
+            case 'Home':
+                mainContainer.appendElement(homeContent);
+                break;
+        }
+        root.appendElement(mainContainer)
     });
 
     var version = root.append('p', 'version')
@@ -119,7 +125,7 @@ try {
     var menuContents = menuContainer.append('ul')
         .style('padding-left', '2em')
         .style('margin', '0');
-    var menuItems = ['Coming soon', 'May Coming soon', 'Probably Coming soon'];
+    var menuItems = ['Home', 'May Coming soon', 'Probably Coming soon'];
     index = 0;
     menuItems.forEach(function (item) {
         menuItems[index++] = menuContents.append('li', 'menu_' + item)
@@ -129,6 +135,9 @@ try {
             .style('cursor', 'pointer')
             .style('text-shadow', '0 0 10px #eccc68')
             .style('transition', '0.3s')
+            .on('click', function () {
+                cc.storeValue('currentView', item);
+            })
             .on('mouseover', function () {
                 this.style('text-shadow', '0 0 10px #eccc68')
                     .style('color', '#eccc68');
