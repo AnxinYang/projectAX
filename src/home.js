@@ -166,15 +166,15 @@ var circleNum = mobilecheck()?50:150;
 var circleList = [];
 
 for(var i=0;i<circleNum;i++){
-    let x = Math.random()*window.innerWidth+10;
-    let y = Math.random()*window.innerHeight+10;
+    let x = Math.random()*window.innerWidth;
+    let y = Math.random()*window.innerHeight;
     let circle = new CubY_DOM('div','backgroundCircle_'+i)
         .style('position','absolute')
         .style('width','20px')
         .style('height','20px')
         .style('border-radius','4px')
         .style('background','#eccc68')
-        .style('transition','0.1s linear')
+        .style('transition','0.3s linear')
         .style('box-shadow','0 0 10px #eccc68')
         .style('opacity', '0')
         .style('transform','translate('+x+'px,'+y+'px)')
@@ -191,22 +191,23 @@ for(var i=0;i<circleNum;i++){
                 .attr('freq',5)
                 .attr('action',function () {
                     let scale = self.scale;
+                    let seed = Math.random();
                     self.x+=self.dx;
                     self.y+=self.dy;
 
                     self.style('transform','translate('+(self.x + (mainContent.dx||0)*scale)+'px,'+(self.y + (mainContent.dy||0)*scale)+'px) scale('+scale+')')
                         .style('opacity', scale)
                         .style('z-index', scale>=0.8?2:0)
-                        .style('box-shadow','0 0 '+(Math.random()*10+10)+'px #eccc68');
+                        .style('box-shadow','0 0 '+(seed*10+10)+'px #eccc68');
                     if(self.x>window.innerWidth){
-                        self.dx = -(Math.random()*0.5+0.1);
+                        self.dx = -(seed*0.5+0.1);
                     }else if(self.x<0){
-                        self.dx = Math.random()*0.5+0.1;
+                        self.dx = seed*0.5+0.1;
                     }
                     if(self.y>window.innerHeight){
-                        self.dy = -(Math.random()*0.5+0.1);
+                        self.dy = -(seed*0.5+0.1);
                     }else if(self.y<0){
-                        self.dy = Math.random()*0.5+0.1;
+                        self.dy = seed*0.5+0.1;
                     }
                     self.counter--;
                     if(self.counter<=0){

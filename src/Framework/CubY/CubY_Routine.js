@@ -56,7 +56,7 @@ class CubY_Routine{
                             console.warn('Routine:' + routine.name + ' took too long to run. ['+self.lastRoutineTime+'ms]')
                         }
                         routine.isRunning = false;
-                    },1);
+                    });
                 }
             }catch (e){
                 //DECIDE IF REMOVE ROUTINE LATER;
@@ -95,7 +95,7 @@ class Routine{
         }
 
         let shouldRun = --this.counter===0;
-        if(this.counter===0){
+        if(shouldRun){
             if(this.executionTimes!==undefined){
                 this.executionTimes--;
                 if(this.executionTimes===0){
