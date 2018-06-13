@@ -45,12 +45,19 @@ export default class CubY_DOM {
     appendElement(CubY_DOM){
         let element = this.readValue(CubY_DOM);
         element.parent = this;
+        element.activate();
         this.childrenList.push(element);
         this.dom.appendChild(element.dom);
         return element;
     }
     attr(key,_value){
-        let value = this.readValue(_value);
+        let value;
+        if(key ==='activate' || key === 'deactivate'){
+            value = _value;
+        }else{
+            value = this.readValue(_value);
+        }
+
         this.attribute[key] = value;
         this.dom.setAttribute(key,value);
         return this;
@@ -188,6 +195,7 @@ export default class CubY_DOM {
         /*this.childrenList.forEach(function (child) {
             child.remove();
         });*/
+        this.deactivate();
         this.dom.remove();
         if(this.parent){
             let childrenList = this.parent.childrenList;
@@ -195,13 +203,34 @@ export default class CubY_DOM {
                 let child = childrenList[i];
                 if(child === this){
                     childrenList.splice(i,1);
-
                 }
             }
         }
         /*for(var key in this){
             delete this[key]
         }*/
+    }
+    activate(){
+        this.isActive = true;
+
+        if(this.attribute.activate){
+            this.attribute.activate.call(this);
+        }
+
+        this.childrenList.forEach(function (child) {
+            child.activate();
+        });
+    }
+    deactivate(){
+        this.isActive = false;
+
+        if(this.attribute.deactivate){
+            this.attribute.deactivate.call(this);
+        }
+
+        this.childrenList.forEach(function (child) {
+            child.deactivate();
+        });
     }
     readValue(_value){
         let value = _value;

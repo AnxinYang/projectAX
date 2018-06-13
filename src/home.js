@@ -168,7 +168,7 @@ var circleList = [];
 for(var i=0;i<circleNum;i++){
     let x = Math.random()*window.innerWidth+10;
     let y = Math.random()*window.innerHeight+10;
-    let circle = mainContent.append('div')
+    let circle = new CubY_DOM('div','backgroundCircle_'+i)
         .style('position','absolute')
         .style('width','20px')
         .style('height','20px')
@@ -177,47 +177,54 @@ for(var i=0;i<circleNum;i++){
         .style('transition','0.1s linear')
         .style('box-shadow','0 0 10px #eccc68')
         .style('opacity', '0')
-        .style('transform','translate('+x+'px,'+y+'px)');
-    
-    circle.x = x;
-    circle.y = y;
-    circle.dx = Math.random()-0.5;
-    circle.dy = Math.random()-0.5;
-    circle.ds = 0.01;
-    circle.scale =  Math.random();
-    circle.counter = 10;
-    let circleAn = AXR.append('home_circle_animation')
-        .attr('freq',5)
-        .attr('action',function () {
-            let scale = circle.scale;
-            circle.x+=circle.dx;
-            circle.y+=circle.dy;
+        .style('transform','translate('+x+'px,'+y+'px)')
+        .attr('activate',function () {
+            let self = this;
+            this.x = x;
+            this.y = y;
+            this.dx = Math.random()-0.5;
+            this.dy = Math.random()-0.5;
+            this.ds = 0.01;
+            this.scale =  Math.random();
+            this.counter = 10;
+            this.circleAn = cr.append('home_circle_animation_'+i)
+                .attr('freq',5)
+                .attr('action',function () {
+                    let scale = self.scale;
+                    self.x+=self.dx;
+                    self.y+=self.dy;
 
-            circle.style('transform','translate('+(circle.x + (mainContent.dx||0)*scale)+'px,'+(circle.y + (mainContent.dy||0)*scale)+'px) scale('+scale+')')
-                .style('opacity', scale)
-                .style('z-index', scale>=0.8?2:0)
-                .style('box-shadow','0 0 '+(Math.random()*10+10)+'px #eccc68');
-            if(circle.x>window.innerWidth){
-                circle.dx = -(Math.random()*0.5+0.1);
-            }else if(circle.x<0){
-                circle.dx = Math.random()*0.5+0.1;
-            }
-            if(circle.y>window.innerHeight){
-                circle.dy = -(Math.random()*0.5+0.1);
-            }else if(circle.y<0){
-                circle.dy = Math.random()*0.5+0.1;
-            }
-            circle.counter--;
-            if(circle.counter<=0){
-                circle.counter=10;
-                circle.scale+=circle.ds;
-                if(circle.scale>=1){
-                    circle.ds=-0.01;
-                }
-                if(circle.scale<=0){
-                    circle.ds=0.01;
-                }
-            }
-        }).insert();
+                    self.style('transform','translate('+(self.x + (mainContent.dx||0)*scale)+'px,'+(self.y + (mainContent.dy||0)*scale)+'px) scale('+scale+')')
+                        .style('opacity', scale)
+                        .style('z-index', scale>=0.8?2:0)
+                        .style('box-shadow','0 0 '+(Math.random()*10+10)+'px #eccc68');
+                    if(self.x>window.innerWidth){
+                        self.dx = -(Math.random()*0.5+0.1);
+                    }else if(self.x<0){
+                        self.dx = Math.random()*0.5+0.1;
+                    }
+                    if(self.y>window.innerHeight){
+                        self.dy = -(Math.random()*0.5+0.1);
+                    }else if(self.y<0){
+                        self.dy = Math.random()*0.5+0.1;
+                    }
+                    self.counter--;
+                    if(self.counter<=0){
+                        self.counter=10;
+                        self.scale+=circle.ds;
+                        if(self.scale>=1){
+                            self.ds=-0.01;
+                        }
+                        if(self.scale<=0){
+                            self.ds=0.01;
+                        }
+                    }
+                }).insert();
+        })
+        .attr('deactivate',function () {
+           this.circleAn.remove();
+        });
+    mainContent.appendElement(circle);
+
 };
 export default mainContent;

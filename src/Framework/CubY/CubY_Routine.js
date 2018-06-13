@@ -7,7 +7,7 @@ class CubY_Routine{
         this.MAX_CYCLE = MAX_CYCLE;
     }
     init(options){
-        window.AXR = this;
+        window.cr = this;
         this.cycle = 0;
         this.routineList = [];
         this.longestRoutineTime =0;
@@ -25,12 +25,13 @@ class CubY_Routine{
             if(newRoutine.freq!==1) {
                 newRoutine.counter += self.routineList.length + 1;
             }
-            newRoutine.idx = self.routineList.length;
+
             self.routineList.push(newRoutine);
             return newRoutine;
         };
         newRoutine.remove= function () {
-            self.routineList.splice(newRoutine.idx,1);
+            let index =  self.routineList.indexOf(newRoutine);
+            self.routineList.splice(index,1);
         };
         return newRoutine;
     }
