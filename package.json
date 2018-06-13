@@ -7,7 +7,7 @@
     "init": "npm install",
     "start": "webpack-dev-server -w --hot --mode development --module-bind js=babel-loader css=style-loader",
     "dev": "webpack -w --devtool inline-source-map --mode development --module-bind js=babel-loader css=style-loader",
-    "node":"node axserver",
+    "node": "node axserver",
     "build": "webpack --mode production --module-bind js=babel-loader  css=style-loader"
   },
   "repository": {
@@ -34,9 +34,6 @@
     "d3": "^5.1.0",
     "jquery": "^3.3.1",
     "namor": "^1.0.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-table": "^6.8.0",
     "webpack": "^4.3.0",
     "webpack-dev-server": "^3.1.1"
   },
@@ -56,7 +53,6 @@
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
     "proxy-middleware": "^0.15.0",
-    "react-hot-loader": "^4.0.0",
     "style-loader": "^0.20.3",
     "webpack-cli": "^2.0.13",
     "webpack-dev-middleware": "^3.1.0",
