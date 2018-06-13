@@ -11,7 +11,7 @@ class CubY_Core{
         this.dataMap = {};
         this.actionMap = {};
         this.browser = this.getBrowser();
-        window.ax = this;
+        window.cc = this;
     }
 
     getBrowser(){
@@ -87,8 +87,8 @@ class CubY_Core{
         var key = _key;
         var callback = _callback || EMPTY_FUNCTION;
         var newValue = _value;
-        var item = store[key] || {};
-        if(item === Object(item) && options.overwrite!==true) {
+        var item = store[key];
+        if(item!==undefined && item === Object(item) && options.overwrite!==true) {
             item = Object.assign(item, newValue);
         }else {
             item = newValue;

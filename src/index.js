@@ -105,7 +105,6 @@ try {
                 mainContainer.appendElement(homeContent);
                 break;
         }
-        root.appendElement(mainContainer)
     });
 
     var version = root.append('p', 'version')
