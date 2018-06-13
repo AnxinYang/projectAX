@@ -63,6 +63,10 @@ var menuContainer = headerMenuButton.append('div', 'menuContainer')
         this.hasOpen = false;
     });
 
+window.addEventListener('click', function (e) {
+    menuContainer.updater('closeMenu')();
+});
+
 headerMenuButton.on('click', function (e) {
     e.stopPropagation();
     menuContainer.updater('toggleMenu')();

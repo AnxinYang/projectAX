@@ -7,9 +7,6 @@ import CR from './Framework/CubY/CubY_Routine';
 import homeContent from './home';
 import header from './components/header'
 try {
-    window.addEventListener('click', function (e) {
-        menuContainer.updater('closeMenu')();
-    });
     window.root = new CubY_DOM('div', 'ax_root', document.getElementById('app'));
     root.style('font-size', '12px')
         .style('cursor', 'url(), auto');
