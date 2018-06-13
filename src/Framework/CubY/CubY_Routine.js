@@ -1,7 +1,6 @@
 const MAX_CYCLE = 100;
 class CubY_Routine{
     constructor(_tickSpeed,_options){
-        this.tickSpeed = _tickSpeed || 1;
         let options = _options || {};
         this.init(options);
         this.MAX_CYCLE = MAX_CYCLE;
@@ -11,12 +10,12 @@ class CubY_Routine{
         this.cycle = 0;
         this.routineList = [];
         this.longestRoutineTime =0;
-        setTimeout(this.start.bind(this));
+        setTimeout(this.start.bind(this),0);
     };
     start(){
         let self = this;
         this.cycleStartTime = Date.now();
-        setTimeout(self.routine.bind(this),this.tickSpeed);
+        setTimeout(self.routine.bind(this),0);
     }
     append(name,group) {
         let newRoutine = new Routine(name, group);
@@ -43,10 +42,11 @@ class CubY_Routine{
         let self = this;
         for(var i=0;i<routineList.length;i++){
             let routine = routineList[i];
-            let startTime = Date.now();
             try {
-                if(routine.checkCounter()) {
+                if(routine.checkLock()) {
+                    routine.lock();
                     setTimeout(function(){
+                        let startTime = Date.now();
                         routine.action();
                         self.lastRoutineTime = Date.now() - startTime;
                         if(self.longestRoutineTime<self.lastRoutineTime){
@@ -55,8 +55,8 @@ class CubY_Routine{
                         if(self.lastRoutineTime>200){
                             console.warn('Routine:' + routine.name + ' took too long to run. ['+self.lastRoutineTime+'ms]')
                         }
-                        routine.isRunning = false;
-                    });
+                        routine.unlock();
+                    },routine.freq);
                 }
             }catch (e){
                 //DECIDE IF REMOVE ROUTINE LATER;
@@ -76,8 +76,22 @@ class Routine{
         this.name = name;
         this.group = group || 'common';
         this.freq = 1;
-        this.action = function () {};
-        this.repeat = 0;
+        let self = this;
+        this.action = function () {
+            self.isRunning = true;
+        };
+        this.counter=0;
+        this.repeat = -1;
+    }
+    lock(){
+        if(this.repeat>0)this.repeat--;
+        this.isRunning = true;
+    }
+    unlock(){
+        if(this.repeat===0){
+            this.remove();
+        }
+        this.isRunning = false;
     }
     attr(key,value){
         this[key] = value;
@@ -89,23 +103,16 @@ class Routine{
     resetCounter(){
         this.counter = this.freq;
     }
-    checkCounter(){
-        if(this.isRunning===true){
-            return false;
+    checkLock(){
+        if(this.counter>0){
+            this.counter--;
         }
 
-        let shouldRun = --this.counter===0;
-        if(shouldRun){
-            if(this.executionTimes!==undefined){
-                this.executionTimes--;
-                if(this.executionTimes===0){
-                    this.remove();
-                }
-            }
-            this.isRunning = true;
-            this.resetCounter();
+        if(this.isRunning===true || this.counter>0){
+            return false;
+        }else {
+            return true;
         }
-       return shouldRun;
     }
 
 }

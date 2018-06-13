@@ -13,6 +13,7 @@ export default class CubY_DOM {
         this.domStyle = {};
         this.updaters = {};
         this.parent = {};
+        this.classes = [];
 
         if(_root){
             _root.appendChild(this.dom);

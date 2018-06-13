@@ -6,13 +6,15 @@ import CubY_DOM from './Framework/CubY/CubY_DOM';
 import CR from './Framework/CubY/CubY_Routine';
 import homeContent from './home';
 import header from './components/header'
-try {
+import backgrond from './components/background_stars'
+
     window.root = new CubY_DOM('div', 'ax_root', document.getElementById('app'));
     root.style('font-size', '12px')
         .style('cursor', 'url(), auto');
     root.appendElement(header);
     var mainContainer = root.append('div', 'mainContainer');
     mainContainer.appendElement(homeContent);
+    mainContainer.appendElement(backgrond);
     cc.storeValue('currentView','Home');
     cc.connect('currentView',function () {
         let currentView = cc.getValue('currentView');
@@ -38,6 +40,3 @@ try {
         .attr('freq', 1)
         .attr('action', version.updater('timer'))
         .insert();
-}catch (e){
-    document.getElementById('app').innerHTML= e;
-}

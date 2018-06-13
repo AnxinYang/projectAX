@@ -123,13 +123,8 @@ class CubY_Core{
         var actionMap = this.actionMap;
         var actionList = actionMap[_key] || [];
         actionList.forEach((action)=> {
-            try {
-                var value = self.getValue(_key);
-                action(value);
-            }catch (e){
-                //var index = actionList.indexOf(action);
-                //actionList.splice(index,1);
-            }
+            var value = self.getValue(_key);
+            action(value);
         })
     };
     debug(str) {
