@@ -16,6 +16,7 @@ export default class CubY_DOM {
 
         if(_root){
             _root.appendChild(this.dom);
+            this.isRoot = true;
         }
         let self = this;
         this.updater = function (name) {
@@ -45,7 +46,11 @@ export default class CubY_DOM {
     appendElement(CubY_DOM){
         let element = this.readValue(CubY_DOM);
         element.parent = this;
-        element.activate();
+
+        if(this.isActive || this.isRoot) {
+            element.activate();
+        }
+
         this.childrenList.push(element);
         this.dom.appendChild(element.dom);
         return element;
