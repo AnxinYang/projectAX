@@ -18,7 +18,7 @@ import backgrond from './components/background_stars'
     cc.storeValue('currentView','Home');
     cc.connect('currentView',function () {
         let currentView = cc.getValue('currentView');
-        mainContainer.remove('.mainContent');
+        mainContainer.remove('.mainContent',500);
         switch (currentView){
             case 'Home':
                 mainContainer.appendElement(homeContent);
