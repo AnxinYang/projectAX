@@ -48,24 +48,23 @@ export default class CubY_DOM {
         let element = this.readValue(CubY_DOM);
         element.parent = this;
 
-        if(this.isActive || this.isRoot) {
-            element.activate();
-        }
-
         this.childrenList.push(element);
         this.dom.appendChild(element.dom);
+        if(this.isActive || this.isRoot) {
+            element.activated();
+        }
         return element;
     }
     attr(key,_value){
         let value;
-        if(key ==='activate' || key === 'deactivate'){
+        if(key ==='activated' || key === 'deactivated'){
             value = _value;
         }else{
             value = this.readValue(_value);
+            this.dom.setAttribute(key,value);
         }
 
         this.attribute[key] = value;
-        this.dom.setAttribute(key,value);
         return this;
     }
     on(eventName,_value){
@@ -201,7 +200,7 @@ export default class CubY_DOM {
         /*this.childrenList.forEach(function (child) {
             child.remove();
         });*/
-        this.deactivate();
+        this.deactivated();
         this.dom.remove();
         if(this.parent){
             let childrenList = this.parent.childrenList;
@@ -216,26 +215,26 @@ export default class CubY_DOM {
             delete this[key]
         }*/
     }
-    activate(){
+    activated(){
         this.isActive = true;
 
-        if(this.attribute.activate){
-            this.attribute.activate.call(this);
+        if(this.attribute.activated){
+            this.attribute.activated.call(this);
         }
 
         this.childrenList.forEach(function (child) {
-            child.activate();
+            child.activated();
         });
     }
-    deactivate(){
+    deactivated(){
         this.isActive = false;
 
-        if(this.attribute.deactivate){
-            this.attribute.deactivate.call(this);
+        if(this.attribute.deactivated){
+            this.attribute.deactivated.call(this);
         }
 
         this.childrenList.forEach(function (child) {
-            child.deactivate();
+            child.deactivated();
         });
     }
     readValue(_value){

@@ -9,11 +9,12 @@ mainContent.style('width','100vw')
     .style('transition', '5s')
     .style('overflow','hidden')
     .appendClass('mainContent');
+
 var backgroundAn = cr.append('backgroundAn')
     .attr('freq',300)
     .attr('repeat',1)
     .attr('action',function () {
-        mainContent.style('background','black')
+        mainContent.style('background','transparent')
     }).insert();
 
 var headLine = mainContent.append('h1','headLine')
@@ -22,29 +23,43 @@ var headLine = mainContent.append('h1','headLine')
     .style('color','white')
     .style('width','100%')
     .style('height', '60px')
-    .style('text-align','center')
+    .style('textAlign','center')
     .style('left','0')
     .style('right','0')
     .style('bottom','33%')
     .style('margin','auto')
-    .style('font-size','64px')
+    .style('fontSize','64px')
     .style('transition', '1s')
-    .style('text-shadow','0 0 10px #70a1ff')
-    .style('z-index',1)
+    .style('opacity', 0)
+    .style('textShadow','0 0 10px #70a1ff')
+    .style('zIndex',1)
     .on('mouseover',function () {
-        this.style('text-shadow','0 0 30px #eccc68')
+        this.style('textShadow','0 0 30px #eccc68')
     })
     .on('mouseleave',function () {
-        this.style('text-shadow','0 0 10px #70a1ff')
+        this.style('textShadow','0 0 10px #70a1ff')
+    })
+    .attr('activated',function () {
+        let self = this;
+        setTimeout(
+            function () {
+                self.style('opacity', 1)
+            },300
+        )
+
+    })
+    .attr('deactivated',function () {
+        this.style('opacity', 0)
     });
+
 var homeHeadLineAnimation = cr.append('home_headLine_animation')
     .attr('freq',300)
     .attr('action',function () {
         let odd = Math.random()*100;
         if(odd>50){
-            headLine.style('text-shadow','0 0 30px #eccc68')
+            headLine.style('textShadow','0 0 30px #eccc68')
         }else{
-            headLine.style('text-shadow','0 0 10px #70a1ff')
+            headLine.style('textShadow','0 0 10px #70a1ff')
         }
     })
     .insert();
@@ -55,33 +70,61 @@ var subHeadLine = mainContent.append('h1','subHeadLine')
     .style('color','#eccc68')
     .style('width','100%')
     .style('height', '30px')
-    .style('text-align','center')
+    .style('textAlign','center')
     .style('left','0')
     .style('right','0')
     .style('bottom','30%')
     .style('margin','auto')
-    .style('font-size','32px')
+    .style('fontSize','32px')
     .style('transition', '1s')
-    .style('text-shadow','0 0 10px #eccc68')
-    .style('z-index',1);
+    .style('opacity', 0)
+    .style('textShadow','0 0 10px #eccc68')
+    .style('zIndex',1)
+    .attr('activated',function () {
+        let self = this;
+        setTimeout(
+            function () {
+                self.style('opacity', 1)
+            },300
+        )
+
+    })
+    .attr('deactivated',function () {
+        this.style('opacity', 0)
+    });
+
 var infoButtonHalo = mainContent.append('span','infoButtonHalo')
     .style('position','fixed')
     .style('color','#eccc68')
     .style('width','32px')
     .style('height', '32px')
+    .style('opacity', 0)
     .style('overflow','hidden')
-    .style('border-radius','4px')
-    .style('text-align','center')
+    .style('borderRadius','4px')
+    .style('textAlign','center')
     .style('left','0')
     .style('right','0')
     .style('bottom','18%')
     .style('margin','auto')
-    .style('font-size','24px')
+    .style('fontSize','24px')
     .style('transition', '0.5s')
     .style('border','1px solid #eccc68')
-    .style('box-shadow','0 0 30px #eccc68')
+    .style('boxShadow','0 0 30px #eccc68')
     .style('cursor','pointer')
-    .style('z-index',1);
+    .style('zIndex',1)
+    .attr('activated',function () {
+        let self = this;
+        setTimeout(
+            function () {
+                self.style('opacity', 1)
+            },300
+        )
+
+    })
+    .attr('deactivated',function () {
+        this.style('opacity', 0)
+    });
+
 var infoButton = mainContent.append('span','infoButton')
     .content('Wanna know more?')
     .style('position','fixed')
@@ -90,34 +133,50 @@ var infoButton = mainContent.append('span','infoButton')
     .style('height', '32px')
     .style('overflow','hidden')
     .style('border','1px solid transparent')
-    .style('border-radius','4px')
-    .style('text-align','center')
+    .style('borderRadius','4px')
+    .style('textAlign','center')
     .style('left','0')
+    .style('opacity', 0)
     .style('right','0')
     .style('bottom','18%')
     .style('margin','auto')
-    .style('font-size','24px')
+    .style('fontSize','24px')
     .style('transition', '0.5s')
     .style('background', '#eccc68')
-    .style('text-shadow','0 0 5px #eccc68')
-    .style('box-shadow','0 0 10x #eccc68')
+    .style('textShadow','0 0 5px #eccc68')
+    .style('boxShadow','0 0 10x #eccc68')
     .style('cursor','pointer')
-    .style('z-index',1)
+    .style('zIndex',1)
+    .attr('activated', function () {
+        let self = this;
+        setTimeout(
+            function () {
+                self.style('opacity', 1)
+            },300
+        ),
+        this.style('background', '#eccc68')
+            .style('width','32px')
+            .style('boxShadow','0 0 10px #eccc68');
+        infoButton.overed = false;
+
+    })
     .on('click',function () {
         cc.storeValue('currentView','about');
     })
     .on('mouseover',function () {
         this.style('background','rgba(0, 0, 0, 0.5)')
             .style('width','100%')
-            .style('box-shadow','')
+            .style('boxShadow','');
+        infoButtonHalo.style('opacity', 0);
         infoButton.overed = true;
     })
     .on('mouseleave',function () {
         this.style('background', '#eccc68')
             .style('width','32px')
-            .style('box-shadow','0 0 10px #eccc68')
+            .style('boxShadow','0 0 10px #eccc68');
         infoButton.overed = false;
     });
+
 var infoButtonHaloAn = cr.append('infoButtonHaloAn')
     .attr('freq',600)
     .attr('action',function () {
@@ -145,4 +204,5 @@ var infoButtonHaloAn = cr.append('infoButtonHaloAn')
                 break;
         }
     }).insert();
+
 export default mainContent;

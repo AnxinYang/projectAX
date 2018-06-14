@@ -7,7 +7,7 @@ var header = new CubY_DOM('div', 'header')
     .style('opacity', '0.5')
     .style('top', '1em')
     .style('height', '3em')
-    .style('z-index', '10')
+    .style('zIndex', '10')
     .style('transition', '0.3s')
     .on('mouseover', function () {
         this.style('opacity', '1')
@@ -25,14 +25,14 @@ headerItems.forEach(function (item) {
         .style('color', 'white')
         .style('padding', '1em 0.5em')
         .style('cursor', 'pointer')
-        .style('text-shadow', '0 0 10px #eccc68')
+        .style('textShadow', '0 0 10px #eccc68')
         .style('transition', '0.3s')
         .on('mouseover', function () {
-            this.style('text-shadow', '0 0 10px #eccc68')
+            this.style('textShadow', '0 0 10px #eccc68')
                 .style('color', '#eccc68');
         })
         .on('mouseleave', function () {
-            this.style('text-shadow', '0 0 20px #eccc68')
+            this.style('textShadow', '0 0 20px #eccc68')
                 .style('color', 'white');
         });
 });
@@ -58,7 +58,7 @@ var menuContainer = headerMenuButton.append('div', 'menuContainer')
     })
     .setUpdater('closeMenu', function (d) {
         this.style('height', '0')
-            .style('box-shadow', '0px 0px 5px rgba(112, 161, 255,0)')
+            .style('boxShadow', '0px 0px 5px rgba(112, 161, 255,0)')
             .style('border', '1px solid rgba(112, 161, 255, 0)');
         this.hasOpen = false;
     });
@@ -73,7 +73,7 @@ headerMenuButton.on('click', function (e) {
 });
 
 var menuContents = menuContainer.append('ul')
-    .style('padding-left', '2em')
+    .style('paddingLeft', '2em')
     .style('margin', '0');
 
 var menuItems = ['Home', 'May Coming soon', 'Probably Coming soon'];
@@ -85,17 +85,17 @@ menuItems.forEach(function (item) {
         .style('color', 'white')
         .style('padding', '1em 0.5em')
         .style('cursor', 'pointer')
-        .style('text-shadow', '0 0 10px #eccc68')
+        .style('textShadow', '0 0 10px #eccc68')
         .style('transition', '0.3s')
         .on('click', function () {
             cc.storeValue('currentView', item);
         })
         .on('mouseover', function () {
-            this.style('text-shadow', '0 0 10px #eccc68')
+            this.style('textShadow', '0 0 10px #eccc68')
                 .style('color', '#eccc68');
         })
         .on('mouseleave', function () {
-            this.style('text-shadow', '0 0 20px #eccc68')
+            this.style('textShadow', '0 0 20px #eccc68')
                 .style('color', 'white');
         });
 });
