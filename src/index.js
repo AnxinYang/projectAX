@@ -9,7 +9,7 @@ import header from './components/header'
 import backgrond from './components/background_stars'
 
     window.root = new CubY_DOM('div', 'ax_root', document.getElementById('app'));
-    root.style('font-size', '12px')
+    root.style('fontSize', '12px')
         .style('cursor', 'url(), auto');
     root.appendElement(header);
     var mainContainer = root.append('div', 'mainContainer');
@@ -30,7 +30,7 @@ import backgrond from './components/background_stars'
         .style('position', 'fixed')
         .style('bottom', '0px')
         .style('right', '0')
-        .style('padding-right', '1em')
+        .style('paddingRight', '1em')
         .style('color', 'lightgray')
         .content(new Date())
         .setUpdater('timer', function () {

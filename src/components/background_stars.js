@@ -18,7 +18,7 @@ background.style('width','100vw')
     .style('background','black')
     .style('top',0)
     .style('left',0)
-    .style('z-index',0)
+    .style('zIndex',0)
     .on('mousemove',function (e,d) {
         let x = e.clientX;
         let y = e.clientY;
@@ -35,10 +35,10 @@ for(var i=0;i<circleNum;i++){
         .style('position','absolute')
         .style('width','20px')
         .style('height','20px')
-        .style('border-radius','4px')
+        .style('borderRadius','4px')
         .style('background','#eccc68')
         .style('transition','0.3s linear')
-        .style('box-shadow','0 0 10px #eccc68')
+        .style('boxShadow','0 0 10px #eccc68')
         .style('opacity', '0')
         .style('transform','translate('+origin.x+'px,'+origin.y+'px)')
         .attr('activate',function () {
@@ -62,8 +62,8 @@ for(var i=0;i<circleNum;i++){
 
                     self.style('transform','translate('+(self.x + (background.dx||0)*scale)+'px,'+(self.y + (background.dy||0)*scale)+'px) scale('+scale+')')
                         .style('opacity', scale)
-                        .style('z-index', scale>=0.8?2:0)
-                        .style('box-shadow','0 0 '+(seed*10+10)+'px #eccc68');
+                        .style('zIndex', scale>=0.8?2:0)
+                        .style('boxShadow','0 0 '+(seed*10+10)+'px #eccc68');
                     if(self.x>window.innerWidth){
                         self.dx = -(seed*0.5+0.1);
                     }else if(self.x<0){
@@ -90,7 +90,7 @@ for(var i=0;i<circleNum;i++){
                 .attr('freq',300)
                 .attr('action',function () {
                     let seed = Math.random();
-                    self.style('box-shadow','0 0 '+(seed*40+10)+'px #eccc68');
+                    self.style('boxShadow','0 0 '+(seed*40+10)+'px #eccc68');
                 }).insert();
         })
         .attr('deactivate',function () {
