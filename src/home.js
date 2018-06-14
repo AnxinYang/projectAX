@@ -13,7 +13,7 @@ var backgroundAn = cr.append('backgroundAn')
     .attr('freq',300)
     .attr('repeat',1)
     .attr('action',function () {
-        mainContent.style('background','black')
+        mainContent.style('background','transparent')
     }).insert();
 
 var headLine = mainContent.append('h1','headLine')
@@ -103,19 +103,26 @@ var infoButton = mainContent.append('span','infoButton')
     .style('box-shadow','0 0 10x #eccc68')
     .style('cursor','pointer')
     .style('z-index',1)
+    .attr('activate', function () {
+        this.style('background', '#eccc68')
+            .style('width','32px')
+            .style('box-shadow','0 0 10px #eccc68');
+        infoButton.overed = false;
+    })
     .on('click',function () {
         cc.storeValue('currentView','about');
     })
     .on('mouseover',function () {
         this.style('background','rgba(0, 0, 0, 0.5)')
             .style('width','100%')
-            .style('box-shadow','')
+            .style('box-shadow','');
+        infoButtonHalo.style('opacity', 0);
         infoButton.overed = true;
     })
     .on('mouseleave',function () {
         this.style('background', '#eccc68')
             .style('width','32px')
-            .style('box-shadow','0 0 10px #eccc68')
+            .style('box-shadow','0 0 10px #eccc68');
         infoButton.overed = false;
     });
 var infoButtonHaloAn = cr.append('infoButtonHaloAn')
