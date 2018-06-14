@@ -16,7 +16,7 @@ var header = new CubY_DOM('div', 'header')
         this.style('opacity', '0.5')
     });
 
-var headerItems = ['Menu', 'Playground', 'About Me'];
+var headerItems = ['Menu', 'Playground', 'About'];
 var index = 0;
 headerItems.forEach(function (item) {
     headerItems[index++] = header.append('div', 'header_' + item)
