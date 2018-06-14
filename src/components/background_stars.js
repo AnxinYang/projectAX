@@ -32,8 +32,6 @@ var circleNum = mobilecheck()?50:128;
 var circleList = [];
 
 for(var i=0;i<circleNum;i++){
-    let x = Math.random()*window.innerWidth;
-    let y = Math.random()*window.innerHeight;
     let circle = new CubY_DOM('div','backgroundCircle_'+i)
         .style('position','absolute')
         .style('width','20px')
@@ -43,7 +41,6 @@ for(var i=0;i<circleNum;i++){
         .style('transition','0.3s linear')
         .style('boxShadow','0 0 10px #eccc68')
         .style('opacity', '0')
-        .style('transform','translate('+ x +'px,'+ y +'px)')
         .attr('activated',function () {
             let self = this;
             let x = Math.random()*window.innerWidth;
@@ -55,6 +52,7 @@ for(var i=0;i<circleNum;i++){
             this.ds = 0.01;
             this.scale =  Math.random();
             this.counter = 10;
+            this.style('transform','translate('+ x +'px,'+ y +'px)');
             this.circleAn = cr.append('home_circle_animation_'+i)
                 .attr('freq',50)
                 .attr('action',function () {
