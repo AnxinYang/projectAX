@@ -48,12 +48,11 @@ export default class CubY_DOM {
         let element = this.readValue(CubY_DOM);
         element.parent = this;
 
+        this.childrenList.push(element);
+        this.dom.appendChild(element.dom);
         if(this.isActive || this.isRoot) {
             element.activate();
         }
-
-        this.childrenList.push(element);
-        this.dom.appendChild(element.dom);
         return element;
     }
     attr(key,_value){
@@ -62,10 +61,10 @@ export default class CubY_DOM {
             value = _value;
         }else{
             value = this.readValue(_value);
+            this.dom.setAttribute(key,value);
         }
 
         this.attribute[key] = value;
-        this.dom.setAttribute(key,value);
         return this;
     }
     on(eventName,_value){

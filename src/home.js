@@ -29,6 +29,7 @@ var headLine = mainContent.append('h1','headLine')
     .style('margin','auto')
     .style('fontSize','64px')
     .style('transition', '1s')
+    .style('opacity', 0)
     .style('textShadow','0 0 10px #70a1ff')
     .style('zIndex',1)
     .on('mouseover',function () {
@@ -36,6 +37,18 @@ var headLine = mainContent.append('h1','headLine')
     })
     .on('mouseleave',function () {
         this.style('textShadow','0 0 10px #70a1ff')
+    })
+    .attr('activate',function () {
+        let self = this;
+        setTimeout(
+            function () {
+                self.style('opacity', 1)
+            },300
+        )
+
+    })
+    .attr('deactivate',function () {
+        this.style('opacity', 0)
     });
 var homeHeadLineAnimation = cr.append('home_headLine_animation')
     .attr('freq',300)
@@ -62,13 +75,27 @@ var subHeadLine = mainContent.append('h1','subHeadLine')
     .style('margin','auto')
     .style('fontSize','32px')
     .style('transition', '1s')
+    .style('opacity', 0)
     .style('textShadow','0 0 10px #eccc68')
-    .style('zIndex',1);
+    .style('zIndex',1)
+    .attr('activate',function () {
+        let self = this;
+        setTimeout(
+            function () {
+                self.style('opacity', 1)
+            },300
+        )
+
+    })
+    .attr('deactivate',function () {
+        this.style('opacity', 0)
+    });
 var infoButtonHalo = mainContent.append('span','infoButtonHalo')
     .style('position','fixed')
     .style('color','#eccc68')
     .style('width','32px')
     .style('height', '32px')
+    .style('opacity', 0)
     .style('overflow','hidden')
     .style('borderRadius','4px')
     .style('textAlign','center')
@@ -81,7 +108,19 @@ var infoButtonHalo = mainContent.append('span','infoButtonHalo')
     .style('border','1px solid #eccc68')
     .style('boxShadow','0 0 30px #eccc68')
     .style('cursor','pointer')
-    .style('zIndex',1);
+    .style('zIndex',1)
+    .attr('activate',function () {
+        let self = this;
+        setTimeout(
+            function () {
+                self.style('opacity', 1)
+            },300
+        )
+
+    })
+    .attr('deactivate',function () {
+        this.style('opacity', 0)
+    });
 var infoButton = mainContent.append('span','infoButton')
     .content('Wanna know more?')
     .style('position','fixed')
@@ -93,6 +132,7 @@ var infoButton = mainContent.append('span','infoButton')
     .style('borderRadius','4px')
     .style('textAlign','center')
     .style('left','0')
+    .style('opacity', 0)
     .style('right','0')
     .style('bottom','18%')
     .style('margin','auto')
@@ -104,10 +144,17 @@ var infoButton = mainContent.append('span','infoButton')
     .style('cursor','pointer')
     .style('zIndex',1)
     .attr('activate', function () {
+        let self = this;
+        setTimeout(
+            function () {
+                self.style('opacity', 1)
+            },300
+        ),
         this.style('background', '#eccc68')
             .style('width','32px')
             .style('boxShadow','0 0 10px #eccc68');
         infoButton.overed = false;
+
     })
     .on('click',function () {
         cc.storeValue('currentView','about');
