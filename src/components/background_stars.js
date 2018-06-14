@@ -2,6 +2,7 @@
  * Created by Anxin Yang on 6/12/2018.
  */
 import CubY_DOM from '../Framework/CubY/CubY_DOM';
+import homeContent from "../home";
 let origin = {
     x: window.innerWidth/2,
     y: window.innerHeight/2
@@ -31,6 +32,8 @@ var circleNum = mobilecheck()?50:128;
 var circleList = [];
 
 for(var i=0;i<circleNum;i++){
+    let x = Math.random()*window.innerWidth;
+    let y = Math.random()*window.innerHeight;
     let circle = new CubY_DOM('div','backgroundCircle_'+i)
         .style('position','absolute')
         .style('width','20px')
@@ -40,7 +43,7 @@ for(var i=0;i<circleNum;i++){
         .style('transition','0.3s linear')
         .style('boxShadow','0 0 10px #eccc68')
         .style('opacity', '0')
-        .style('transform','translate('+origin.x+'px,'+origin.y+'px)')
+        .style('transform','translate('+ x +'px,'+ y +'px)')
         .attr('activated',function () {
             let self = this;
             let x = Math.random()*window.innerWidth;
@@ -97,6 +100,14 @@ for(var i=0;i<circleNum;i++){
             this.circleAn.remove();
             this.circleAn2.remove();
         });
+    cc.connect('currentView',function () {
+        let x = Math.random()*window.innerWidth;
+        let y = Math.random()*window.innerHeight;
+        let scale = circle.scale =  Math.random();
+        circle.x = x;
+        circle.y = y;
+        circle.style('transform','translate('+(self.x + (background.dx||0)*scale)+'px,'+(self.y + (background.dy||0)*scale)+'px) scale('+scale+')')
+    });
     background.appendElement(circle);
 
 };
