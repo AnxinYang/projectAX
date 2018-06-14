@@ -9,6 +9,7 @@ mainContent.style('width','100vw')
     .style('transition', '5s')
     .style('overflow','hidden')
     .appendClass('mainContent');
+
 var backgroundAn = cr.append('backgroundAn')
     .attr('freq',300)
     .attr('repeat',1)
@@ -50,6 +51,7 @@ var headLine = mainContent.append('h1','headLine')
     .attr('deactivated',function () {
         this.style('opacity', 0)
     });
+
 var homeHeadLineAnimation = cr.append('home_headLine_animation')
     .attr('freq',300)
     .attr('action',function () {
@@ -90,6 +92,7 @@ var subHeadLine = mainContent.append('h1','subHeadLine')
     .attr('deactivated',function () {
         this.style('opacity', 0)
     });
+
 var infoButtonHalo = mainContent.append('span','infoButtonHalo')
     .style('position','fixed')
     .style('color','#eccc68')
@@ -121,6 +124,7 @@ var infoButtonHalo = mainContent.append('span','infoButtonHalo')
     .attr('deactivated',function () {
         this.style('opacity', 0)
     });
+
 var infoButton = mainContent.append('span','infoButton')
     .content('Wanna know more?')
     .style('position','fixed')
@@ -172,6 +176,7 @@ var infoButton = mainContent.append('span','infoButton')
             .style('boxShadow','0 0 10px #eccc68');
         infoButton.overed = false;
     });
+
 var infoButtonHaloAn = cr.append('infoButtonHaloAn')
     .attr('freq',600)
     .attr('action',function () {
@@ -199,4 +204,5 @@ var infoButtonHaloAn = cr.append('infoButtonHaloAn')
                 break;
         }
     }).insert();
+
 export default mainContent;
