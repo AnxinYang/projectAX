@@ -41,7 +41,7 @@ for(var i=0;i<circleNum;i++){
         .style('boxShadow','0 0 10px #eccc68')
         .style('opacity', '0')
         .style('transform','translate('+origin.x+'px,'+origin.y+'px)')
-        .attr('activate',function () {
+        .attr('activated',function () {
             let self = this;
             let x = Math.random()*window.innerWidth;
             let y = Math.random()*window.innerHeight;
@@ -93,7 +93,7 @@ for(var i=0;i<circleNum;i++){
                     self.style('boxShadow','0 0 '+(seed*40+10)+'px #eccc68');
                 }).insert();
         })
-        .attr('deactivate',function () {
+        .attr('deactivated',function () {
             this.circleAn.remove();
             this.circleAn2.remove();
         });

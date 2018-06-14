@@ -38,7 +38,7 @@ var headLine = mainContent.append('h1','headLine')
     .on('mouseleave',function () {
         this.style('textShadow','0 0 10px #70a1ff')
     })
-    .attr('activate',function () {
+    .attr('activated',function () {
         let self = this;
         setTimeout(
             function () {
@@ -47,7 +47,7 @@ var headLine = mainContent.append('h1','headLine')
         )
 
     })
-    .attr('deactivate',function () {
+    .attr('deactivated',function () {
         this.style('opacity', 0)
     });
 var homeHeadLineAnimation = cr.append('home_headLine_animation')
@@ -78,7 +78,7 @@ var subHeadLine = mainContent.append('h1','subHeadLine')
     .style('opacity', 0)
     .style('textShadow','0 0 10px #eccc68')
     .style('zIndex',1)
-    .attr('activate',function () {
+    .attr('activated',function () {
         let self = this;
         setTimeout(
             function () {
@@ -87,7 +87,7 @@ var subHeadLine = mainContent.append('h1','subHeadLine')
         )
 
     })
-    .attr('deactivate',function () {
+    .attr('deactivated',function () {
         this.style('opacity', 0)
     });
 var infoButtonHalo = mainContent.append('span','infoButtonHalo')
@@ -109,7 +109,7 @@ var infoButtonHalo = mainContent.append('span','infoButtonHalo')
     .style('boxShadow','0 0 30px #eccc68')
     .style('cursor','pointer')
     .style('zIndex',1)
-    .attr('activate',function () {
+    .attr('activated',function () {
         let self = this;
         setTimeout(
             function () {
@@ -118,7 +118,7 @@ var infoButtonHalo = mainContent.append('span','infoButtonHalo')
         )
 
     })
-    .attr('deactivate',function () {
+    .attr('deactivated',function () {
         this.style('opacity', 0)
     });
 var infoButton = mainContent.append('span','infoButton')
@@ -143,7 +143,7 @@ var infoButton = mainContent.append('span','infoButton')
     .style('boxShadow','0 0 10x #eccc68')
     .style('cursor','pointer')
     .style('zIndex',1)
-    .attr('activate', function () {
+    .attr('activated', function () {
         let self = this;
         setTimeout(
             function () {
