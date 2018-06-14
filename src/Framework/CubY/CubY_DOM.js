@@ -143,9 +143,9 @@ export default class CubY_DOM {
         }
         return targetList;
     }
-    remove(_selector){
-        if(_selector==undefined){
-            this.removeSelf();
+    remove(_selector,_transition){
+        if(_selector===undefined){
+            this.removeSelf(_transition);
             return;
         }
         let selector = _selector.charAt(0);
@@ -153,55 +153,62 @@ export default class CubY_DOM {
         let target;
         switch (selector){
             case '#':
-                this.removeById(name);
+                this.removeById(name,_transition);
                 break;
             case '.':
-                this.removeByClassName(name);
+                this.removeByClassName(name,_transition);
                 break;
             default:
-                this.removeByTag(_selector);
+                this.removeByTag(_selector,_transition);
         }
     }
-    removeById(id){
+    removeById(id,_transition){
         let childrenList = this.childrenList;
         for(var i = 0; i<childrenList.length;i++){
             let child = childrenList[i];
             if(child.id === id){
                 childrenList.splice(i,1);
-                child.remove();
+                child.remove(undefined,_transition);
                 i--;
                 break;
             }
         }
     }
-    removeByClassName(className){
+    removeByClassName(className,_transition){
         let childrenList = this.childrenList;
         for(var i = 0; i<childrenList.length;i++){
             let child = childrenList[i];
             if(child.classes.indexOf(className)>-1){
                 childrenList.splice(i,1);
-                child.remove();
+                child.remove(undefined,_transition);
                 i--;
             }
         }
     }
-    removeByTag(_tag){
+    removeByTag(_tag,_transition){
         let childrenList = this.childrenList;
         for(var i = 0; i<childrenList.length;i++){
             let child = childrenList[i];
             if(child.tag === _tag){
                 childrenList.splice(i,1);
-                child.remove();
+                child.remove(undefined,_transition);
                 i--;
             }
         }
     }
-    removeSelf(){
+    removeSelf(_transition){
         /*this.childrenList.forEach(function (child) {
             child.remove();
         });*/
+        let self = this;
         this.deactivated();
-        this.dom.remove();
+        if(_transition) {
+            setTimeout(function () {
+                self.dom.remove();
+            },_transition)
+        }else{
+            self.dom.remove();
+        }
         if(this.parent){
             let childrenList = this.parent.childrenList;
             for(var i = 0; i<childrenList.length;i++){
