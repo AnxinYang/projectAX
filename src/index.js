@@ -7,7 +7,7 @@ import CR from './Framework/CubY/CubY_Routine';
 import homeContent from './home';
 import header from './components/header'
 import backgrond from './components/background_stars'
-
+const VIEW_TRANSITION_TIME = 500;
     window.root = new CubY_DOM('div', 'ax_root', document.getElementById('app'));
     root.style('fontSize', '12px')
         .style('cursor', 'url(), auto');
@@ -18,7 +18,7 @@ import backgrond from './components/background_stars'
     cc.storeValue('currentView','Home');
     cc.connect('currentView',function () {
         let currentView = cc.getValue('currentView');
-        mainContainer.remove('.mainContent',500);
+        mainContainer.remove('.mainContent',VIEW_TRANSITION_TIME);
         switch (currentView){
             case 'Home':
                 mainContainer.appendElement(homeContent);
