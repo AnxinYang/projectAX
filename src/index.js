@@ -8,6 +8,14 @@ import homeContent from './home';
 import header from './components/header'
 import backgrond from './components/background_stars'
 const VIEW_TRANSITION_TIME = 500;
+window.addEventListener('resize',function () {
+    if(window.resizing){
+        clearTimeout(window.resizing)
+    }
+    window.resizing = setTimeout(function () {
+        cc.storeValue('viewportSize',{w:window.innerWidth,h:window.innerHeight});
+    },100)
+});
     window.root = new CubY_DOM('div', 'ax_root', document.getElementById('app'));
     root.style('fontSize', '12px')
         .style('cursor', 'url(), auto');

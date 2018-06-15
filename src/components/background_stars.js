@@ -106,6 +106,14 @@ for(var i=0;i<circleNum;i++){
         circle.y = y;
         circle.style('transform','translate('+(self.x + (background.dx||0)*scale)+'px,'+(self.y + (background.dy||0)*scale)+'px) scale('+scale+')')
     });
+    cc.connect('viewportSize',function () {
+        let x = Math.random()*window.innerWidth;
+        let y = Math.random()*window.innerHeight;
+        let scale = circle.scale =  Math.random();
+        circle.x = x;
+        circle.y = y;
+        circle.style('transform','translate('+(self.x + (background.dx||0)*scale)+'px,'+(self.y + (background.dy||0)*scale)+'px) scale('+scale+')')
+    });
     background.appendElement(circle);
 
 };
