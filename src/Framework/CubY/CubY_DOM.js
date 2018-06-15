@@ -203,7 +203,7 @@ export default class CubY_DOM {
         let self = this;
         this.deactivated();
         if(_transition) {
-            setTimeout(function () {
+            this.deactivatedTimer = setTimeout(function () {
                 self.dom.remove();
             },_transition)
         }else{
@@ -224,7 +224,9 @@ export default class CubY_DOM {
     }
     activated(){
         this.isActive = true;
-
+        if(this.deactivatedTimer){
+            clearTimeout(this.deactivatedTimer)
+        }
         if(this.attribute.activated){
             this.attribute.activated.call(this);
         }
