@@ -12,13 +12,10 @@ export default class CubY_DOM {
         this.attribute = {};
         this.domStyle = {};
         this.updaters = {};
-        this.parent = {};
+        this.parent;
         this.classes = [];
+        this.root(_root);
 
-        if(_root){
-            _root.appendChild(this.dom);
-            this.isRoot = true;
-        }
         let self = this;
         this.updater = function (name) {
             let updater =this.updaters[name];
@@ -35,6 +32,14 @@ export default class CubY_DOM {
     }
     bind(data){
         this.data = data;
+        return this;
+    }
+    root(_root){
+        if(_root){
+            _root.appendChild(this.dom);
+            this.isRoot = true;
+            this.activated();
+        }
         return this;
     }
     append(_tag,_id){
@@ -57,6 +62,14 @@ export default class CubY_DOM {
     }
     attr(key,_value){
         let value;
+
+        if(typeof key === 'object'){
+            for(var k in key){
+                this.attr(k,key[k])
+            }
+            return this;
+        }
+
         if(key ==='activated' || key === 'deactivated'){
             value = _value;
         }else{
@@ -79,6 +92,12 @@ export default class CubY_DOM {
     style(_key,_value){
         let key = this.readValue(_key);
         let value = this.readValue(_value);
+        if(typeof key === 'object'){
+            for(var k in key){
+                this.style(k,key[k])
+            }
+            return this;
+        }
         this.domStyle[key] = value;
         this.dom.style[key] = value;
         return this;
