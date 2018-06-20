@@ -98,14 +98,16 @@ for(var i=0;i<circleNum;i++){
             this.circleAn.remove();
             this.circleAn2.remove();
         });
-    cc.connect('currentView',function () {
+    circle.rearrange = function () {
         let x = Math.random()*window.innerWidth;
         let y = Math.random()*window.innerHeight;
         let scale = circle.scale =  Math.random();
         circle.x = x;
         circle.y = y;
         circle.style('transform','translate('+(self.x + (background.dx||0)*scale)+'px,'+(self.y + (background.dy||0)*scale)+'px) scale('+scale+')')
-    });
+    };
+    cc.connect('currentView',circle.rearrange);
+    cc.connect('viewportSize',circle.rearrange);
     background.appendElement(circle);
 
 };
