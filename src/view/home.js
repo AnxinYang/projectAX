@@ -1,9 +1,9 @@
-import CubY_DOM from './Framework/CubY/CubY_DOM';
+import CubY_DOM from '../Framework/CubY/CubY_DOM';
 
 
 var mainContent = new CubY_DOM('div','homeContent');
-mainContent.style('width','100vw')
-    .style('height','100vh')
+mainContent.style('width','100%')
+    .style('height','100%')
     .style('background','#222f3e')
     .style('position','relative')
     .style('transition', '5s')
@@ -161,7 +161,7 @@ var infoButton = mainContent.append('span','infoButton')
 
     })
     .on('click',function () {
-        cc.storeValue('currentView','about');
+        cc.storeValue('currentView','About');
     })
     .on('mouseover',function () {
         this.style('background','rgba(0, 0, 0, 0.5)')

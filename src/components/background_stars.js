@@ -2,7 +2,7 @@
  * Created by Anxin Yang on 6/12/2018.
  */
 import CubY_DOM from '../Framework/CubY/CubY_DOM';
-import homeContent from "../home";
+import homeContent from "../view/home";
 let origin = {
     x: window.innerWidth/2,
     y: window.innerHeight/2

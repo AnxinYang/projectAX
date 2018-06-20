@@ -4,7 +4,8 @@
 import CC from './Framework/CubY/CubY_Core';
 import CubY_DOM from './Framework/CubY/CubY_DOM';
 import CR from './Framework/CubY/CubY_Routine';
-import homeContent from './home';
+import homeContent from './view/home';
+import aboutContent from './view/about';
 import header from './components/header'
 import backgrond from './components/background_stars'
 const VIEW_TRANSITION_TIME = 500;
@@ -14,7 +15,7 @@ window.addEventListener('resize',function () {
     }
     window.resizing = setTimeout(function () {
         cc.storeValue('viewportSize',{w:window.innerWidth,h:window.innerHeight});
-    },100)
+    },200)
 });
     window.root = new CubY_DOM('div', 'ax_root', document.getElementById('app'));
     root.style('fontSize', '12px')
@@ -30,6 +31,9 @@ window.addEventListener('resize',function () {
         switch (currentView){
             case 'Home':
                 mainContainer.appendElement(homeContent);
+                break;
+            case 'About':
+                mainContainer.appendElement(aboutContent);
                 break;
         }
     });
