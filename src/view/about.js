@@ -28,7 +28,8 @@ var sections = ['Basic','Career','Education'];
 
 sections.forEach(function(_section,idx){
     let sectionContainer = mainContent.append('div',_section+'Container');
-    sectionContainer.style(sectionContainerStyle)
+    sectionContainer.content('Coming Soon...')
+        .style(sectionContainerStyle)
         .attr('activated',function () {
             let self = this;
             setTimeout(function () {
