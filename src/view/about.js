@@ -14,6 +14,8 @@ var mainContentContainerStyle = {
 var sectionContainerStyle = {
     width: '30%',
     height: '70%',
+    color:'#eccc68',
+    textShadow:'0 0 5px #eccc68',
     border: '1px solid #eccc68',
     overflow: 'hidden',
     minWidth:'300px',
