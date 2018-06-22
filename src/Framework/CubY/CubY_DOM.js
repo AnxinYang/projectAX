@@ -107,6 +107,9 @@ class CubY_DOM {
         this.dom.innerHTML = value;
         return this;
     }
+    getContent(){
+        return this.innerHTML;
+    }
     appendClass(_className){
         let className = this.readValue(_className);
         let classes = this.classes || [];

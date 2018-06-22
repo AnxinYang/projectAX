@@ -18,7 +18,7 @@ window.addEventListener('resize',function () {
         CubY.storeValue('viewportSize',{w:window.innerWidth,h:window.innerHeight});
     },200)
 });
-    window.root = new CubY.createElement('div', 'ax_root', document.getElementById('app'));
+    window.root =CubY.createElement('div', 'ax_root', document.getElementById('app'));
     root.style('fontSize', '12px')
         .style('cursor', 'url(), auto');
     root.appendElement(header);
