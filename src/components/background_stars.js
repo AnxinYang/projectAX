@@ -1,7 +1,7 @@
 /**
  * Created by Anxin Yang on 6/12/2018.
  */
-import CubY_DOM from '../Framework/CubY/CubY_DOM';
+import CubY from '../Framework/CubY/CubY';
 import homeContent from "../view/home";
 let origin = {
     x: window.innerWidth/2,
@@ -20,7 +20,7 @@ document.onmousemove = function(e){
     background.dy = -(y - origin.y)/10;
 };
 
-var background = new CubY_DOM('div','background');
+var background = CubY.createElement('div','background');
 background.style('width','100vw')
     .style('height','100vh')
     .style('position','fixed')
@@ -32,7 +32,7 @@ var circleNum = mobilecheck()?50:128;
 var circleList = [];
 
 for(var i=0;i<circleNum;i++){
-    let circle = new CubY_DOM('div','backgroundCircle_'+i)
+    let circle = CubY.createElement('div','backgroundCircle_'+i)
         .style('position','absolute')
         .style('width','20px')
         .style('height','20px')
@@ -53,7 +53,7 @@ for(var i=0;i<circleNum;i++){
             this.scale =  Math.random();
             this.counter = 10;
             this.style('transform','translate('+ x +'px,'+ y +'px)');
-            this.circleAn = cr.append('home_circle_animation_'+i)
+            this.circleAn = CubY.createRoutine('home_circle_animation_'+i)
                 .attr('freq',50)
                 .attr('action',function () {
                     let scale = self.scale;
@@ -87,7 +87,7 @@ for(var i=0;i<circleNum;i++){
                         }
                     }
                 }).insert();
-            this.circleAn2 = cr.append('home_circle_animation_2_'+i)
+            this.circleAn2 = CubY.createRoutine('home_circle_animation_2_'+i)
                 .attr('freq',300)
                 .attr('action',function () {
                     let seed = Math.random();
@@ -106,8 +106,8 @@ for(var i=0;i<circleNum;i++){
         circle.y = y;
         circle.style('transform','translate('+(self.x + (background.dx||0)*scale)+'px,'+(self.y + (background.dy||0)*scale)+'px) scale('+scale+')')
     };
-    cc.connect('currentView',circle.rearrange);
-    cc.connect('viewportSize',circle.rearrange);
+    CubY.connect('currentView',circle.rearrange);
+    CubY.connect('viewportSize',circle.rearrange);
     background.appendElement(circle);
 
 };

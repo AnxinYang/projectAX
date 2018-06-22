@@ -1,8 +1,7 @@
 /**
  * Created by Anxin Yang on 5/26/2018.
  */
-import AXCore from './CubY_Core';
-export default class CubY_DOM {
+class CubY_DOM {
     constructor(_tag,_id,_root) {
         this.id = this.readValue(_id)|| 'self';
         this.tag = this.readValue(_tag) || 'div';
@@ -45,7 +44,7 @@ export default class CubY_DOM {
     append(_tag,_id){
         let tag = this.readValue(_tag);
         let id = this.readValue(_id);
-        let element = new CubY_DOM(tag,id);
+        let element = CubY.createElement(tag,id);
         this.appendElement(element);
         return element;
     }
@@ -274,3 +273,9 @@ export default class CubY_DOM {
         }
     }
 }
+var _CubY_DOM = {
+    createElement: function (_tag, _id, _root) {
+        return new CubY_DOM(_tag, _id, _root)
+    }
+}
+export default _CubY_DOM

@@ -1,6 +1,6 @@
-import CubY_DOM from '../Framework/CubY/CubY_DOM';
+import CubY from '../Framework/CubY/CubY';
 
-var header = new CubY_DOM('div', 'header')
+var header = CubY.createElement('div', 'header')
     .attr('onselectstart', 'return false;')
     .style('display', 'flex')
     .style('position', 'absolute')
@@ -88,7 +88,7 @@ menuItems.forEach(function (item) {
         .style('textShadow', '0 0 10px #eccc68')
         .style('transition', '0.3s')
         .on('click', function () {
-            cc.storeValue('currentView', item);
+            CubY.storeValue('currentView', item);
         })
         .on('mouseover', function () {
             this.style('textShadow', '0 0 10px #eccc68')

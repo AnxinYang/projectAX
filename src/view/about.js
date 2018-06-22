@@ -1,6 +1,6 @@
-import CubY_DOM from '../Framework/CubY/CubY_DOM';
+import CubY from '../Framework/CubY/CubY';
 
-var mainContent = new CubY_DOM('div','about');
+var mainContent = CubY.createElement('div','about');
 var mainContentContainerStyle = {
     width:'100vw',
     height:'100vh',

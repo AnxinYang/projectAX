@@ -1,7 +1,7 @@
-import CubY_DOM from '../Framework/CubY/CubY_DOM';
+import CubY from '../Framework/CubY/CubY';
 
 
-var mainContent = new CubY_DOM('div','homeContent');
+var mainContent = CubY.createElement('div','homeContent');
 mainContent.style('width','100%')
     .style('height','100%')
     .style('background','#222f3e')
@@ -10,7 +10,7 @@ mainContent.style('width','100%')
     .style('overflow','hidden')
     .appendClass('mainContent');
 
-var backgroundAn = cr.append('backgroundAn')
+var backgroundAn = CubY.createRoutine('backgroundAn')
     .attr('freq',300)
     .attr('repeat',1)
     .attr('action',function () {
@@ -52,7 +52,7 @@ var headLine = mainContent.append('h1','headLine')
         this.style('opacity', 0)
     });
 
-var homeHeadLineAnimation = cr.append('home_headLine_animation')
+var homeHeadLineAnimation = CubY.createRoutine('home_headLine_animation')
     .attr('freq',300)
     .attr('action',function () {
         let odd = Math.random()*100;
@@ -161,7 +161,7 @@ var infoButton = mainContent.append('span','infoButton')
 
     })
     .on('click',function () {
-        cc.storeValue('currentView','About');
+        CubY.storeValue('currentView','About');
     })
     .on('mouseover',function () {
         this.style('background','rgba(0, 0, 0, 0.5)')
@@ -177,7 +177,7 @@ var infoButton = mainContent.append('span','infoButton')
         infoButton.overed = false;
     });
 
-var infoButtonHaloAn = cr.append('infoButtonHaloAn')
+var infoButtonHaloAn = CubY.createRoutine('infoButtonHaloAn')
     .attr('freq',600)
     .attr('action',function () {
         if(infoButton.overed === true){

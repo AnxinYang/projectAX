@@ -17,7 +17,7 @@ class CubY_Routine{
         this.cycleStartTime = Date.now();
         setTimeout(self.routine.bind(this),0);
     }
-    append(name,group) {
+    createRoutine(name,group) {
         let newRoutine = new Routine(name, group);
         let self = this;
         newRoutine.insert= function () {
@@ -108,14 +108,9 @@ class Routine{
             this.counter--;
         }
 
-        if(this.isRunning===true || this.counter>0){
-            return false;
-        }else {
-            return true;
-        }
+        return !(this.isRunning === true || this.counter > 0);
     }
 
 }
-const cr = new CubY_Routine();
-window.cr = cr;
-export default cr;
+const _CubY_Routine = new CubY_Routine();
+export default _CubY_Routine;

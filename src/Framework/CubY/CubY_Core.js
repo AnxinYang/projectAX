@@ -133,6 +133,5 @@ class CubY_Core{
         }
     };
 }
-const cc = new CubY_Core();
-window.cc = cc;
-export default cc;
+const _CubY_Core = new CubY_Core();
+export default _CubY_Core;
