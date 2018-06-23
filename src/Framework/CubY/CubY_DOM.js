@@ -9,6 +9,7 @@ class CubY_DOM {
         this.dom.setAttribute('id',this.id);
         this.childrenList = [];
         this.attribute = {};
+        this.property = {};
         this.domStyle = {};
         this.updaters = {};
         this.parent;
