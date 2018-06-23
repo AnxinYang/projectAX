@@ -79,12 +79,12 @@ class CubY_DOM {
         this.attribute[key] = value;
         return this;
     }
-    props(key,_value){
+    prop(key,_value){
         let value;
 
         if(typeof key === 'object'){
             for(var k in key){
-                this.props(k,key[k])
+                this.prop(k,key[k])
             }
             return this;
         }
