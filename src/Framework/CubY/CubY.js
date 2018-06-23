@@ -4,6 +4,7 @@ import CubY_Routine from './CubY_Routine';
 const EMPTY_FUNCTION = ()=>{};
 
 var CubY = {
+
     //Core
     getValue: CubY_Core.getValue.bind(CubY_Core),
     getBrowser: CubY_Core.getBrowser.bind(CubY_Core),
@@ -20,7 +21,14 @@ var CubY = {
     createRoutine:CubY_Routine.createRoutine.bind(CubY_Routine),
     getCurrentCycle:CubY_Routine.getCurrentCycle.bind(CubY_Routine),
     routine:CubY_Routine.routine.bind(CubY_Routine),
-
+    //AddOns
+    addOn: function (obj) {
+        for(var key in obj){
+            if(obj.hasOwnProperty(key)){
+                CubY[key] = obj[key];
+            }
+        }
+    },
     //Other
     version: '0.5b.e6',
     debugInfo: [CubY_Core,CubY_Routine]
