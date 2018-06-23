@@ -58,6 +58,7 @@ class CubY_Core{
     }
 
     storeDataArray(_array, _idKey, _itemProcessor, _options, _callback) {
+        var self = this;
         var options = _options || {};
         var idKey = _idKey || 'id';
         var callback = _callback || EMPTY_FUNCTION;

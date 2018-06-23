@@ -79,6 +79,26 @@ class CubY_DOM {
         this.attribute[key] = value;
         return this;
     }
+    props(key,_value){
+        let value;
+
+        if(typeof key === 'object'){
+            for(var k in key){
+                this.props(k,key[k])
+            }
+            return this;
+        }
+
+        if(key ==='activated' || key === 'deactivated'){
+            value = _value;
+        }else{
+            value = this.readValue(_value);
+            this.dom[key] =  value;
+        }
+
+        this.property[key] = value;
+        return this;
+    }
     on(eventName,_value){
         let value = _value;
         let self = this;
