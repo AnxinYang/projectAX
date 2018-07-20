@@ -3,8 +3,8 @@
  */
 class CubY_DOM {
     constructor(_tag,_id,_root) {
-        this.id = this.readValue(_id)|| 'self';
         this.tag = this.readValue(_tag) || 'div';
+        this.id = this.readValue(_id)|| this.tag + '_' + Math.random()*10000+'_'+Date.now();
         this.dom = document.createElement(this.tag);
         this.dom.setAttribute('id',this.id);
         this.childrenList = [];
@@ -12,6 +12,7 @@ class CubY_DOM {
         this.property = {};
         this.domStyle = {};
         this.updaters = {};
+        this.connectionList = [];
         this.parent;
         this.classes = [];
         this.root(_root);
@@ -105,7 +106,7 @@ class CubY_DOM {
         let self = this;
         this.on[eventName] = value;
         this.dom.addEventListener(eventName,function (e) {
-            value.call(self,e,self.data,)
+            value.call(self,e,self.data)
         });
         return this;
     }
@@ -124,12 +125,12 @@ class CubY_DOM {
     }
     content(_value){
         let value = this.readValue(_value);
-        this.innerHTML = value;
-        this.dom.innerHTML = value;
+        this.innerText = value;
+        this.dom.innerText = value;
         return this;
     }
     getContent(){
-        return this.innerHTML;
+        return this.innerText;
     }
     appendClass(_className){
         let className = this.readValue(_className);
@@ -186,8 +187,8 @@ class CubY_DOM {
         return targetList;
     }
     remove(_selector,_transition){
-        if(_selector===undefined){
-            this.removeSelf(_transition);
+        if(_selector===undefined || typeof _selector === 'number'){
+            this.removeSelf(_selector || _transition);
             return;
         }
         let selector = _selector.charAt(0);
@@ -269,24 +270,33 @@ class CubY_DOM {
         if(this.deactivatedTimer){
             clearTimeout(this.deactivatedTimer)
         }
-        if(this.attribute.activated){
-            this.attribute.activated.call(this);
-        }
+
+        this.connectionList.forEach(function (connection) {
+            connection.insert();
+        });
 
         this.childrenList.forEach(function (child) {
             child.activated();
         });
+
+        if(this.attribute.activated){
+            this.attribute.activated.call(this);
+        }
     }
     deactivated(){
         this.isActive = false;
 
-        if(this.attribute.deactivated){
-            this.attribute.deactivated.call(this);
-        }
+        this.connectionList.forEach(function (connection) {
+            connection.remove();
+        });
 
         this.childrenList.forEach(function (child) {
             child.deactivated();
         });
+
+        if(this.attribute.deactivated){
+            this.attribute.deactivated.call(this);
+        }
     }
     readValue(_value){
         let value = _value;
@@ -301,5 +311,5 @@ var _CubY_DOM = {
     createElement: function (_tag, _id, _root) {
         return new CubY_DOM(_tag, _id, _root)
     }
-}
+};
 export default _CubY_DOM

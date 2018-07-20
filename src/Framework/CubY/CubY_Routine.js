@@ -10,7 +10,7 @@ class CubY_Routine{
         this.cycle = 0;
         this.routineList = [];
         this.longestRoutineTime =0;
-        setTimeout(this.start.bind(this),0);
+        //setTimeout(this.start.bind(this),0);
     };
     start(){
         let self = this;

@@ -5,11 +5,11 @@ class CubY_Core{
         let self = this;
         this.init(props);
     }
+
     init(_props){
         let props = _props || {};
-        this.debugMode = props.debug || false;
         this.dataMap = {};
-        this.actionMap = {};
+        this.connectionMap = {};
         this.browser = this.getBrowser();
         window.cc = this;
     }
@@ -68,7 +68,7 @@ class CubY_Core{
 
         array.forEach(function (_item) {
             var key = _item[idKey];
-            if (key === undefined) {
+            if (key === undefined || self.readValue(options.skipFun, _item)) {
                 return;
             }
 
@@ -89,50 +89,127 @@ class CubY_Core{
         var callback = _callback || EMPTY_FUNCTION;
         var newValue = _value;
         var item = store[key];
+        var shouldReact = true;
         if(item!==undefined && item === Object(item) && options.overwrite!==true) {
             item = Object.assign(item, newValue);
         }else {
+            shouldReact = (item!==newValue);
             item = newValue;
         }
         this.dataMap[key] = item;
 
         callback(item);
-        this.react(key);
+        if(shouldReact || options.forceReact) {
+            this.react(key);
+        }
         return item;
     };
-    getValue(_key) {
+    getValue(_key, caseSensitive) {
         var key = _key || '';
-        return this.dataMap[key];
-    };
-
-    connect(_key,_action) {
-        if(_key===undefined || _action===undefined){
-            return false;
+        if(caseSensitive!==false){
+            return this.dataMap[key];
+        }else{
+            for(var K in this.dataMap){
+                if(this.dataMap.hasOwnProperty(K)){
+                    if(K.toLowerCase()===key.toLowerCase()){
+                        return this.dataMap[K];
+                    }
+                }
+            }
+            return undefined;
         }
 
-        var actionMap = this.actionMap;
-        var actionList = actionMap[_key] || [];
-        actionList.push(_action);
-        actionMap[_key] = actionList;
     };
-    react(_key) {
+
+    connect(_key){
+        let newConector = new CubY_Connector(_key, this);
+        return newConector;
+    }
+    react(key){
         var self = this;
-        if(_key===undefined){
-            return false;
+        var connectionMap = this.connectionMap;
+        var connectorMap = connectionMap[key] || {};
+        var newValue = self.getValue(key);
+        for(var id in connectorMap){
+            if(connectorMap.hasOwnProperty(id)){
+                connectorMap[id].run(newValue)
+            }
         }
+    }
+    readValue(_value, data){
+        let value = _value;
+        if(typeof value === "function"){
+            return value.call(this,data);
+        }else{
+            return value;
+        }
+    }
+    isObjectEmpty(obj){
+        if(!obj){
+            return true
+        }
+        for(var key in obj){
+            if(obj.hasOwnProperty(key)){
+                return false;
+            }
+        }
+        return true;
+    }
 
-        var actionMap = this.actionMap;
-        var actionList = actionMap[_key] || [];
-        actionList.forEach((action)=> {
-            var value = self.getValue(_key);
-            action(value);
-        })
-    };
     debug(str) {
-        if(this.debugMode){
+        if(this.getValue('DEBUG_MODE')){
             console.log('DEBUG: ' + str);
         }
     };
 }
 const _CubY_Core = new CubY_Core();
 export default _CubY_Core;
+
+class CubY_Connector{
+    constructor(key, core){
+        let self = this;
+        this.id =  'connector_' + Math.random()*10000 +'_'+Date.now();
+        this.bindingKey = key;
+
+        this.insert = function () {
+            var connectorMap = core.connectionMap[self.bindingKey] || {};
+            connectorMap[self.id] = self;
+            core.connectionMap[self.bindingKey] = connectorMap;
+        };
+        this.remove = function () {
+            try {
+                if(core.connectionMap[self.bindingKey]){
+                    if(core.connectionMap[self.bindingKey][self.id]){
+                        delete core.connectionMap[self.bindingKey][self.id];
+                    }
+                    if (CubY.isObjectEmpty(core.connectionMap[self.bindingKey])) {
+                        delete core.connectionMap[self.bindingKey];
+                    }
+                }
+            }catch (e){
+                console.warn('[Warning]: Connector remove method reference error.')
+            }
+        };
+        this.insert();
+    }
+    to(action){
+        this.action = action;
+        return this;
+    }
+    belong(owner){
+        this.owner = owner;
+        owner.connectionList.push(this);
+        return this;
+    }
+    run(newValue){
+        if(typeof this.action === 'function'){
+            if(this.owner){
+                if(this.owner.isActive) {
+                    this.action.call(this.owner, newValue);
+                }
+            }else {
+                this.action(newValue);
+            }
+        }
+    }
+}

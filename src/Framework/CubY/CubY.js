@@ -13,6 +13,8 @@ var CubY = {
     connect: CubY_Core.connect.bind(CubY_Core),
     react: CubY_Core.react.bind(CubY_Core),
     debug: CubY_Core.debug.bind(CubY_Core),
+    readValue: CubY_Core.readValue.bind(CubY_Core),
+    isObjectEmpty: CubY_Core.isObjectEmpty.bind(CubY_Core),
 
     //DOM
     createElement: CubY_DOM.createElement,
@@ -23,14 +25,14 @@ var CubY = {
     routine:CubY_Routine.routine.bind(CubY_Routine),
     //AddOns
     addOn: function (obj) {
-        for(var key in obj){
-            if(obj.hasOwnProperty(key)){
-                CubY[key] = obj[key];
-            }
-        }
+      for(var key in obj){
+          if(obj.hasOwnProperty(key)){
+              CubY[key] = obj[key];
+          }
+      }
     },
     //Other
-    version: '0.5b.e6',
+    version: '0.6b.0.10',
     debugInfo: [CubY_Core,CubY_Routine]
 };
 
