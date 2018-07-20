@@ -57,14 +57,14 @@ class CubY_Core{
         }
     }
 
-    storeDataArray(_array, _idKey, _itemProcessor, _options, _callback) {
+    storeDataArray(_array, _idKey, _options, _callback) {
         var self = this;
         var options = _options || {};
         var idKey = _idKey || 'id';
         var callback = _callback || EMPTY_FUNCTION;
         var array = _array || [];
         var itemList = [];
-        var itemProcessor = _itemProcessor || EMPTY_FUNCTION;
+        var itemProcessor = options.itemProcessor || EMPTY_FUNCTION;
 
         array.forEach(function (_item) {
             var key = _item[idKey];
@@ -82,11 +82,10 @@ class CubY_Core{
         return itemList;
     };
 
-    storeValue(_key, _value, _options, _callback) {
+    storeValue(_key, _value, _options) {
         var options = _options || {};
         var store = this.dataMap;
         var key = _key;
-        var callback = _callback || EMPTY_FUNCTION;
         var newValue = _value;
         var item = store[key];
         var shouldReact = true;
@@ -97,8 +96,6 @@ class CubY_Core{
             item = newValue;
         }
         this.dataMap[key] = item;
-
-        callback(item);
         if(shouldReact || options.forceReact) {
             this.react(key);
         }
