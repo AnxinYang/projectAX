@@ -84,7 +84,7 @@ class CubY_Core{
 
     storeValue(_key, _value, _options) {
         var options = _options || {};
-        var store = this.dataMap;
+        var store = this[options.store] || this.dataMap;
         var key = _key;
         var newValue = _value;
         var item = store[key];
@@ -101,15 +101,16 @@ class CubY_Core{
         }
         return item;
     };
-    getValue(_key, caseSensitive) {
+    getValue(_key, options = {}) {
         var key = _key || '';
-        if(caseSensitive!==false){
-            return this.dataMap[key];
+        let store = options.store || 'dataMap'
+        if(options.caseSensitive!==false){
+            return this[store];
         }else{
-            for(var K in this.dataMap){
-                if(this.dataMap.hasOwnProperty(K)){
+            for(var K in this[store]){
+                if(this[store].hasOwnProperty(K)){
                     if(K.toLowerCase()===key.toLowerCase()){
-                        return this.dataMap[K];
+                        return this[store][K];
                     }
                 }
             }

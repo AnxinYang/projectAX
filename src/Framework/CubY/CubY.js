@@ -1,6 +1,7 @@
 import CubY_Core from './CubY_Core';
 import CubY_DOM from './CubY_DOM';
 import CubY_Routine from './CubY_Routine';
+import CubY_Pipeline from './CubY_Pipeline';
 const EMPTY_FUNCTION = ()=>{};
 
 var CubY = {
@@ -19,6 +20,8 @@ var CubY = {
     //DOM
     createElement: CubY_DOM.createElement,
 
+    //Pipeline
+    createPipeline: CubY_Pipeline.createPipeline,
     //Routine
     createRoutine:CubY_Routine.createRoutine.bind(CubY_Routine),
     getCurrentCycle:CubY_Routine.getCurrentCycle.bind(CubY_Routine),
